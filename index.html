@@ -29,9 +29,18 @@
   </head>
   <body>
     <!-- Nav Bar -->
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav
+      class="navbar hero is-primary is-bold"
+      role="navigation"
+      aria-label="main navigation"
+    >
       <div class="navbar-brand">
-        <a class="navbar-item" href="/favorites.html"> Favorites </a>
+        <div id="navbarBasicExample" class="navbar-menu">
+          <a class="navbar-item" href="index.html"> Home </a>
+          <a class="navbar-item navbar-end" href="favorites.html">
+            Favorites
+          </a>
+        </div>
 
         <a
           role="button"
@@ -44,17 +53,6 @@
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
         </a>
-      </div>
-
-      <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link"> Dinner Decider! </a>
-
-          <div class="navbar-dropdown">
-            <a class="navbar-item"> Home </a>
-            <a class="navbar-item"> Favorites </a>
-          </div>
-        </div>
       </div>
     </nav>
     <!-- containers and header -->
