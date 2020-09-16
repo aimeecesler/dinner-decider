@@ -28,6 +28,35 @@
     ></script>
   </head>
   <body>
+    <!-- Nav Bar -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/favorites.html"> Favorites </a>
+
+        <a
+          role="button"
+          class="navbar-burger burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarBasicExample"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link"> Dinner Decider! </a>
+
+          <div class="navbar-dropdown">
+            <a class="navbar-item"> Home </a>
+            <a class="navbar-item"> Favorites </a>
+          </div>
+        </div>
+      </div>
+    </nav>
     <script src="assets/script.js" async defer></script>
   </body>
 </html>
