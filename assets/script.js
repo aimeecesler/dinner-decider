@@ -6,19 +6,59 @@ $(document).ready(function () {
     $(".navbar-burger").toggleClass("is-active");
     $(".navbar-menu").toggleClass("is-active");
   });
-  $("#map").toggleClass("inactive");
 });
 
 //Variables
 var detailsboxEl = $("#detailsBoxes");
 var randomBtnEL = $("#random-submit");
 var clicked = 0;
+var latitude = "";
+var longitude = "";
 
 //Functions
-function createBox() {
-  console.log("clicked");
-  var randomNum = Math.floor(Math.random() * 19) + 1;
 
+//function to create Cusines filter dropdown
+function getCuisines() {
+  var queryURL =
+    "https://developers.zomato.com/api/v2.1/cuisines?&lat=" +
+    latitude +
+    "648&lon=" +
+    longitude;
+  $.ajax({
+    url: queryURL,
+    method: "GET",
+    headers: {
+      "user-key": "1bd06c11f1c9593babc2673ca5dd7d34",
+      "content-type": "application/json",
+    },
+  }).then(function (response) {
+    var cuisineArr = response.cuisines;
+    for (
+      var cuisineIndex = 0;
+      cuisineIndex < cuisineArr.length;
+      cuisineIndex++
+    ) {
+      $(".cuisine-dropdown").append(
+        $("<option>").text(cuisineArr[cuisineIndex].cuisine.cuisine_name)
+      );
+    }
+  });
+}
+
+window.navigator.geolocation.getCurrentPosition(getCoordinates);
+
+//Get Coordinates function for users location
+function getCoordinates(position) {
+  latitude = position.coords.latitude;
+  longitude = position.coords.longitude;
+  console.log(latitude, longitude);
+  getCuisines();
+}
+
+//function to create the details box
+function createBox() {
+  // console.log("clicked")
+  var randomNum = Math.floor(Math.random() * 19) + 1;
   // GET the geoloaction for the user
   //GET cityID for that location
   // GET cuisines in that location
@@ -43,7 +83,6 @@ function createBox() {
   moreBtn.addClass(
     "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
   );
-  //text
 
   //attributes
   moreBtn.addClass(
@@ -60,45 +99,6 @@ function createBox() {
   pMenuItem.text("Top Item");
   moreBtn.text("More info");
 
-  var latitude = "";
-  var longitude = "";
-
-  function getCuisines() {
-    var queryURL =
-      "https://developers.zomato.com/api/v2.1/cuisines?&lat=" +
-      latitude +
-      "648&lon=" +
-      longitude;
-    $.ajax({
-      url: queryURL,
-      method: "GET",
-      headers: {
-        "user-key": "1bd06c11f1c9593babc2673ca5dd7d34",
-        "content-type": "application/json",
-      },
-    }).then(function (response) {
-      var cuisineArr = response.cuisines;
-      for (
-        var cuisineIndex = 0;
-        cuisineIndex < cuisineArr.length;
-        cuisineIndex++
-      ) {
-        $(".cuisine-dropdown").append(
-          $("<option>").text(cuisineArr[cuisineIndex].cuisine.cuisine_name)
-        );
-      }
-    });
-  }
-
-  window.navigator.geolocation.getCurrentPosition(getCoordinates);
-
-  function getCoordinates(position) {
-    latitude = position.coords.latitude;
-    longitude = position.coords.longitude;
-    console.log(latitude, longitude);
-    getCuisines();
-  }
-
   //append
   detailsboxEl.append(detailsBox1);
   detailsBox1.append(
@@ -111,52 +111,25 @@ function createBox() {
     pMenuItem,
     moreBtn
   );
-  function getCuisines() {
-    var queryURL =
-      "https://developers.zomato.com/api/v2.1/cuisines?&lat=" +
-      latitude +
-      "648&lon=" +
-      longitude;
-    $.ajax({
-      url: queryURL,
-      method: "GET",
-      headers: {
-        "user-key": "1bd06c11f1c9593babc2673ca5dd7d34",
-        "content-type": "application/json",
-      },
-    }).then(function (response) {
-      var cuisineArr = response.cuisines;
-      for (
-        var cuisineIndex = 0;
-        cuisineIndex < cuisineArr.length;
-        cuisineIndex++
-      ) {
-        $(".cuisine-dropdown").append(
-          $("<option>").text(cuisineArr[cuisineIndex].cuisine.cuisine_name)
-        );
-      }
-
-      moreBtn.on("click", function (event) {
-        event.preventDefault();
-        window.open("details.html");
-      });
-    });
-
-    // Event Listeners
-
-    randomBtnEL.on("click", function (event) {
-      event.preventDefault();
-      clicked++;
-      // console.log(clicked)
-      if (clicked > 3) {
-        detailsboxEl.prepend(
-          $("<h2> HANGRY? Pick a place. <h2>").addClass(
-            "is-size-1 has-text-weight-bold mt-6"
-          )
-        );
-      } else {
-        createBox();
-      }
-    });
-  }
+  moreBtn.on("click", function (event) {
+    event.preventDefault();
+    window.open("details.html");
+  });
 }
+
+// Event Listeners
+
+randomBtnEL.on("click", function (event) {
+  event.preventDefault();
+  clicked++;
+  // console.log(clicked)
+  if (clicked > 3) {
+    detailsboxEl.prepend(
+      $("<h2> HANGRY? Pick a place. <h2>").addClass(
+        "is-size-1 has-text-weight-bold mt-6"
+      )
+    );
+  } else {
+    createBox();
+  }
+});
