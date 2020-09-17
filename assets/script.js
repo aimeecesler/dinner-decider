@@ -14,6 +14,7 @@ randomBtnEL = $("#random-submit");
 var latitude = "";
 var longitude = "";
 
+window.navigator.geolocation.getCurrentPosition(getCoordinates);
 
 
 function getCoordinates(position) {
@@ -90,14 +91,16 @@ $.ajax({
     "content-type": "application/json",
   },
 }).then(function (response) {
-  console.log(response);
+  var cuisineArr = response.cuisines
+  for (var cuisineIndex = 0; cuisineIndex < cuisineArr.length; cuisineIndex++) {
+    $(".cuisine-dropdown").append($("<option>").text(cuisineArr[cuisineIndex].cuisine.cuisine_name));
+  }
 });
 };
 
 // Event Listeners
 
 randomBtnEL.on("click", function (event) {
-  window.navigator.geolocation.getCurrentPosition(getCoordinates);
   event.preventDefault();
   createBox();
 });
