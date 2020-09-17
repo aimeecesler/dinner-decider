@@ -13,18 +13,9 @@ detailsboxEl = $("#detailsBoxes");
 randomBtnEL = $("#random-submit");
 
 //Functions
-
-function createDetailBox() {
-  
- 
-}
-
-// Event Listeners
-
-randomBtnEL.on("click", function (event) {
-  event.preventDefault();
-  console.log("clicked");
-  //create article
+function createBox() {
+  // console.log("clicked")
+  //create elements 
   var detailsBox1 = $("<article>");
   var h3Name = $("<h3>");
   var moreBtn = $("<button>");
@@ -34,7 +25,9 @@ randomBtnEL.on("click", function (event) {
   var pCuisineType = $("<p>");
   var webURL = $("<a>");
   var pMenuItem = $("<p>");
-
+  
+  //attributes 
+  moreBtn.addClass('button has-text-weight-bold is-primary is-rounded is-large mt-6 mb-6');
   //text
 
   h3Name.text("Name");
@@ -58,4 +51,14 @@ randomBtnEL.on("click", function (event) {
     pMenuItem,
     moreBtn
   );
+  
+}
+
+// Event Listeners
+
+randomBtnEL.on("click", function (event) {
+  event.preventDefault();
+  createBox();
 } );
+
+
