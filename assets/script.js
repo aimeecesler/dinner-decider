@@ -63,17 +63,31 @@ $(document).ready(function () {
   }
   // Search the restaurant results based on location
 
-  function restaurantSearch() {
-    latitude = localStorage.getItem("lat");
-    longitude = localStorage.getItem("long");
-    var radius = 1000;
-    var queryURL =
-      "https://developers.zomato.com/api/v2.1/search?radius=" +
-      radius +
-      "&lat=" +
-      latitude +
-      "&lon=" +
-      longitude;
+  window.navigator.geolocation.getCurrentPosition(getCoordinates);
+
+  //Get Coordinates function for users location 
+  function getCoordinates(position) {
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
+    // console.log(latitude, longitude);
+    localStorage.setItem("latitude", latitude);
+    localStorage.setItem("longitude", longitude);
+    getCuisines();
+    
+  }
+
+  // Search the resturant results based on location 
+  
+  function restaurantSearch(){
+    latitude = localStorage.getItem("latitude");
+    longitude = localStorage.getItem("longitude");
+    var radius = 5000;
+    var queryURL = "https://developers.zomato.com/api/v2.1/search?radius=" +
+    radius + 
+    "&lat=" +
+    latitude + 
+    "&lon=" +
+    longitude;
     $.ajax({
       url: queryURL,
       method: "GET",
@@ -94,12 +108,13 @@ $(document).ready(function () {
       var pHours = $("<p>");
       var pCuisineType = $("<p>");
       var webURL = $("<a>");
-      var pMenuItem = $("<p>");
+      
 
-      //attributes
-      moreBtn.addClass(
-        "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
-      );
+
+
+      //attributes 
+      moreBtn.addClass('button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6');
+      
       webURL.attr("href", response.restaurants[randomNum].restaurant.url);
       //text
 
