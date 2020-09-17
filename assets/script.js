@@ -45,15 +45,17 @@ function getCuisines() {
       "content-type": "application/json",
     },
   }).then(function (response) {
+    console.log(response);
     var cuisineArr = response.cuisines;
     for (
       var cuisineIndex = 0;
       cuisineIndex < cuisineArr.length;
       cuisineIndex++
     ) {
-      $(".cuisine-dropdown").append(
-        $("<option>").text(cuisineArr[cuisineIndex].cuisine.cuisine_name)
-      );
+      var newOption = $("<option>");
+      newOption.text(cuisineArr[cuisineIndex].cuisine.cuisine_name);
+      newOption.attr("id",cuisineArr[cuisineIndex].cuisine.cuisine_id);
+      $(".cuisine-dropdown").append(newOption);
     }
   });
 }
@@ -62,12 +64,13 @@ function getFilteredRestaurant(){
   latitude = localStorage.getItem("lat");
   longitude = localStorage.getItem("long");
   var queryURL =
-    "https://developers.zomato.com/api/v2.1/search?radius=5000&lat=" +
+    "https://developers.zomato.com/api/v2.1/search?radius=2500&lat=" +
     latitude +
     "&lon=" +
     longitude +
     "&cuisines=" +
     selectedCuisine;
+    console.log(queryURL);
   $.ajax({
     url: queryURL,
     method: "GET",
@@ -161,6 +164,7 @@ randomBtnEL.on("click", function (event) {
 
 filterBtnEL.on("click", function (event) {
   event.preventDefault();
-  selectedCuisine = "";
+  selectedCuisine = $("#selected-cuisine > option").attr("id");
+  console.log(selectedCuisine);
   getFilteredRestaurant();
 });
