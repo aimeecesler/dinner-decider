@@ -10,10 +10,20 @@ $(document).ready(function () {
 
 //Variables
 detailsboxEl = $("#detailsBoxes");
+randomBtnEL = $("#random-submit");
 
 //Functions
 
 function createDetailBox() {
+  
+ 
+}
+
+// Event Listeners
+
+randomBtnEL.on("click", function (event) {
+  event.preventDefault();
+  console.log("clicked");
   //create article
   var detailsBox1 = $("<article>");
   var h3Name = $("<h3>");
@@ -48,6 +58,4 @@ function createDetailBox() {
     pMenuItem,
     moreBtn
   );
-}
-
-// Event Listeners
+} );
