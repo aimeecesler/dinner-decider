@@ -29,7 +29,7 @@ function createBox() {
     //create elements 
     var detailsBox1 = $("<article>");
     var h3Name = $("<h3>");
-    var moreBtn = $("<button>");
+    var moreBtn = $("<a>");
     var pAdress = $("<p>");
     var pNum = $("<p>");
     var pHours = $("<p>");
@@ -62,7 +62,10 @@ function createBox() {
       pMenuItem,
       moreBtn
     );
-  
+  moreBtn.on("click", function (event) {
+    event.preventDefault();
+     window.open("details.html")
+  })
 };
 
 // Event Listeners
