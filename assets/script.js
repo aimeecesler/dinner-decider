@@ -15,6 +15,16 @@ randomBtnEL = $("#random-submit");
 //Functions
 function createBox() {
   // console.log("clicked")
+  var randomNum = Math.floor(Math.random() * 19) + 1;
+  // GET the geoloaction for the user
+  //GET cityID for that location 
+  // GET cuisines in that location 
+  //create a random number between 1-10 to grab a resturant at that index 
+  // var ZomatoURL = 
+  //  $.ajax(
+  //   url:,
+  //   method: "GET"
+  // )
   //create elements 
   var detailsBox1 = $("<article>");
   var h3Name = $("<h3>");
@@ -25,7 +35,7 @@ function createBox() {
   var pCuisineType = $("<p>");
   var webURL = $("<a>");
   var pMenuItem = $("<p>");
-  
+
   //attributes 
   moreBtn.addClass('button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6');
   //text
@@ -51,7 +61,7 @@ function createBox() {
     pMenuItem,
     moreBtn
   );
-  
+
 }
 
 // Event Listeners
@@ -59,6 +69,4 @@ function createBox() {
 randomBtnEL.on("click", function (event) {
   event.preventDefault();
   createBox();
-} );
-
-
+});
