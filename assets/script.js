@@ -24,7 +24,7 @@ var longitude = "";
     var queryURL =
       "https://developers.zomato.com/api/v2.1/cuisines?&lat=" +
       latitude +
-      "648&lon=" +
+      "&lon=" +
       longitude;
     $.ajax({
       url: queryURL,
@@ -64,11 +64,11 @@ var longitude = "";
     latitude = localStorage.getItem("latitude");
     longitude = localStorage.getItem("longitude");
     var radius = 5000;
-    var queryURL = "http://developers.zomato.com/api/v2.1/search?radius=" +
+    var queryURL = "https://developers.zomato.com/api/v2.1/search?radius=" +
     radius + 
     "&lat=" +
     latitude + 
-    "648&lon=" +
+    "&lon=" +
     longitude;
     $.ajax({
       url:queryURL, 
@@ -90,11 +90,13 @@ var longitude = "";
       var pHours = $("<p>");
       var pCuisineType = $("<p>");
       var webURL = $("<a>");
-      var pMenuItem = $("<p>");
+      
+
 
 
       //attributes 
       moreBtn.addClass('button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6');
+      favBtn.addClass("button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6")
       webURL.attr("href", response.restaurants[randomNum].restaurant.url);
       //text
   
