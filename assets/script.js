@@ -12,6 +12,17 @@ $(document).ready(function () {
 //Variables
 detailsboxEl = $("#detailsBoxes");
 randomBtnEL = $("#random-submit");
+var latitude = "";
+var longitude = "";
+
+window.navigator.geolocation.getCurrentPosition(getCoordinates);
+
+function getCoordinates(position) {
+  latitude = position.coords.latitude;
+  longitude = position.coords.longitude;
+  console.log(latitude, longitude);
+  getCuisines();
+}
 
 //Functions
 function createBox() {
@@ -65,11 +76,40 @@ function createBox() {
     pMenuItem,
     moreBtn
   );
+<<<<<<< HEAD
   mapboxgl.accessToken =
     "pk.eyJ1IjoiaWNlY2ljbGUwNCIsImEiOiJja2Y1aTN0d2QwbjZ2MzJrdXdrb2pkaWh0In0.R70c-4ioETiAZ9SOJgYNlQ";
   var map = new mapboxgl.Map({
     container: "map",
     style: "mapbox://styles/mapbox/streets-v11",
+=======
+}
+
+function getCuisines() {
+  var queryURL =
+    "https://developers.zomato.com/api/v2.1/cuisines?&lat=" +
+    latitude +
+    "648&lon=" +
+    longitude;
+  $.ajax({
+    url: queryURL,
+    method: "GET",
+    headers: {
+      "user-key": "1bd06c11f1c9593babc2673ca5dd7d34",
+      "content-type": "application/json",
+    },
+  }).then(function (response) {
+    var cuisineArr = response.cuisines;
+    for (
+      var cuisineIndex = 0;
+      cuisineIndex < cuisineArr.length;
+      cuisineIndex++
+    ) {
+      $(".cuisine-dropdown").append(
+        $("<option>").text(cuisineArr[cuisineIndex].cuisine.cuisine_name)
+      );
+    }
+>>>>>>> 4e6f7c615073f6b930efed095fd8b1d886a7800f
   });
 }
 
@@ -79,6 +119,7 @@ randomBtnEL.on("click", function (event) {
   event.preventDefault();
   createBox();
 });
+<<<<<<< HEAD
 
 // <!-- map box map -->
 // <figure class="image is-200x300">
@@ -88,3 +129,5 @@ randomBtnEL.on("click", function (event) {
 //     class="disabled"
 //   ></div>
 // </figure>
+=======
+>>>>>>> 4e6f7c615073f6b930efed095fd8b1d886a7800f
