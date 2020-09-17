@@ -27,7 +27,7 @@ function createBox() {
   var pMenuItem = $("<p>");
   
   //attributes 
-  moreBtn.addClass('button has-text-weight-bold is-primary is-rounded is-large mt-6 mb-6');
+  moreBtn.addClass('button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6');
   //text
 
   h3Name.text("Name");
