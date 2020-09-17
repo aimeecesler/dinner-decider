@@ -24,13 +24,15 @@ $(document).ready(function () {
   function getCoordinates(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
-    console.log(latitude, longitude)
+    console.log(latitude, longitude);
     localStorage.setItem("lat", latitude);
     localStorage.setItem("long", longitude);
     getCuisines();
   }
 
-  //function to create Cuisines filter dropdown
+  //Functions
+
+  //function to create Cusines filter dropdown
   function getCuisines() {
     var queryURL =
       "https://developers.zomato.com/api/v2.1/cuisines?&lat=" +
@@ -136,6 +138,31 @@ $(document).ready(function () {
     });
   }
 
+  function filteredSearch(){
+    latitude = localStorage.getItem("lat");
+    longitude = localStorage.getItem("long");
+    var radius = 1000;
+    var queryURL =
+      "https://developers.zomato.com/api/v2.1/search?radius=" +
+      radius +
+      "&lat=" +
+      latitude +
+      "&lon=" +
+      longitude +
+      "&cuisines=" +
+      selectedCuisine;
+    $.ajax({
+      url: queryURL,
+      method: "GET",
+      headers: {
+        "user-key": "cce5f51e69604fc081fc15cd37642e9d",
+        "content-type": "application/json",
+      },
+    }).then(function (response) {
+      console.log(response);
+    })
+  }
+
   // Event Listeners
 
   randomBtnEL.on("click", function (event) {
@@ -153,33 +180,11 @@ $(document).ready(function () {
     }
   });
 
-  function getFilteredRestaurant() {
-    latitude = localStorage.getItem("lat");
-    longitude = localStorage.getItem("long");
-    var queryURL =
-      "https://developers.zomato.com/api/v2.1/search?radius=2500&lat=" +
-      latitude +
-      "&lon=" +
-      longitude +
-      "&cuisines=" +
-      selectedCuisine;
-    console.log(queryURL);
-    $.ajax({
-      url: queryURL,
-      method: "GET",
-      headers: {
-        "user-key": "cce5f51e69604fc081fc15cd37642e9d",
-        "content-type": "application/json",
-      },
-    }).then(function (response) {
-      console.log(response);
-    });
-  }
+ filterBtnEL.on("click", function (event) {
+   event.preventDefault();
+   selectedCuisine = $("#selected-cuisine > option").attr("id");
+   console.log(selectedCuisine);
+   filteredSearch();
+ })
 
-  filterBtnEL.on("click", function (event) {
-    event.preventDefault();
-    selectedCuisine = $("#selected-cuisine > option").attr("id");
-    console.log(selectedCuisine);
-    getFilteredRestaurant();
-  });
 });
