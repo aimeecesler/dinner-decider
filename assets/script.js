@@ -16,7 +16,6 @@ var longitude = "";
 
 window.navigator.geolocation.getCurrentPosition(getCoordinates);
 
-
 function getCoordinates(position) {
   latitude = position.coords.latitude;
   longitude = position.coords.longitude;
@@ -79,24 +78,30 @@ function createBox() {
 
 function getCuisines() {
   var queryURL =
-  "https://developers.zomato.com/api/v2.1/cuisines?&lat=" +
-  latitude +
-  "648&lon=" +
-  longitude;
-$.ajax({
-  url: queryURL,
-  method: "GET",
-  headers: {
-    "user-key": "1bd06c11f1c9593babc2673ca5dd7d34",
-    "content-type": "application/json",
-  },
-}).then(function (response) {
-  var cuisineArr = response.cuisines
-  for (var cuisineIndex = 0; cuisineIndex < cuisineArr.length; cuisineIndex++) {
-    $(".cuisine-dropdown").append($("<option>").text(cuisineArr[cuisineIndex].cuisine.cuisine_name));
-  }
-});
-};
+    "https://developers.zomato.com/api/v2.1/cuisines?&lat=" +
+    latitude +
+    "648&lon=" +
+    longitude;
+  $.ajax({
+    url: queryURL,
+    method: "GET",
+    headers: {
+      "user-key": "1bd06c11f1c9593babc2673ca5dd7d34",
+      "content-type": "application/json",
+    },
+  }).then(function (response) {
+    var cuisineArr = response.cuisines;
+    for (
+      var cuisineIndex = 0;
+      cuisineIndex < cuisineArr.length;
+      cuisineIndex++
+    ) {
+      $(".cuisine-dropdown").append(
+        $("<option>").text(cuisineArr[cuisineIndex].cuisine.cuisine_name)
+      );
+    }
+  });
+}
 
 // Event Listeners
 
