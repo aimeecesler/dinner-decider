@@ -53,16 +53,48 @@ var longitude = "";
     longitude = position.coords.longitude;
     console.log(latitude, longitude);
     getCuisines();
+    restaurantSearch();
   }
+
+  // Search the resturant results based on location 
+  function restaurantSearch(){
+    var radius = 5000;
+    var queryURL = "http://developers.zomato.com/api/v2.1/search?radius=" +
+    radius + 
+    "&lat=" +
+    latitude + 
+    "648&lon=" +
+    longitude;
+    $.ajax({
+      url:queryURL, 
+      method: "GET", 
+      headers: {
+        "user-key": "614739258008e260c13bec9702dcb738",
+        "content-type": "application/json",
+      }
+    }).then(function (response) {
+      // console.log(response);
+      console.log(response.restaurants[0].restaurant.name);
+      console.log("address: " + response.restaurants[0].restaurant.location.address);
+      console.log("Phone Number: " + response.restaurants[0].restaurant.phone_numbers);
+      console.log("Hours: " + response.restaurants[0].restaurant.timings);
+      console.log("Type of Cuisine: " + response.restaurants[0].restaurant.cuisines);
+      console.log(response.restaurants[0].restaurant.url); 
+    });
+    createBox();
+  }
+
 
 
   //function to create the details box
   function createBox() {
     // console.log("clicked")
     var randomNum = Math.floor(Math.random() * 19) + 1;
-    // GET the geoloaction for the user
+    console.log(randomNum);
+    
+    //GET the geoloaction for the user
     //GET cityID for that location
-    // GET cuisines in that location
+    //GET cuisines in that location
     //create a random number between 1-10 to grab a resturant at that index
     // var ZomatoURL =
     //  $.ajax(
