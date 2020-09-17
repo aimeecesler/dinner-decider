@@ -26,6 +26,8 @@
       integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
       crossorigin="anonymous"
     ></script>
+    <!-- GL JS for Mapbox API call -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
   </head>
   <body>
     <!-- Nav Bar -->
@@ -72,10 +74,17 @@
           id="main-content-column"
         >
           <div class="box py-6">
-            <h1 class="is-size-1 has-text-weight-bold mt-6">Can't decide what you want for dinner?</h1>
+            <h1 class="is-size-1 has-text-weight-bold mt-6">
+              Can't decide what you want for dinner?
+            </h1>
             <h2 class="is-size-2">Let us decide for you!</h2>
-            <button class="button has-text-weight-bold is-primary is-rounded is-large mt-6 mb-6"
-            id="random-submit">WHAT'S FOR DINNER?</button>
+            <button
+              class="button has-text-weight-bold is-primary is-rounded is-large mt-6 mb-6"
+              id="random-submit"
+            >
+              WHAT'S FOR DINNER?
+            </button>
+
             <!-- <a
               href="details.html"
               class="button has-text-weight-bold is-primary is-rounded is-large mt-6 mb-6"
@@ -83,43 +92,43 @@
               >WHAT'S FOR DINNER?</a
             > -->
           </div>
-          <div id="detailsBoxes" class = "box py-6"></div>
+          <div id="detailsBoxes" class="box py-6"></div>
         </div>
         <div class="column has-text-centered" id="filter-column">
           <div class="box py-6">
             <h1 class="is-size-3 mt-6">Have something specific in mind?</h1>
             <form class="my-6">
-                <div class="field">
-                    <label class="label">I want...</label>
-                    <div class="control">
-                        <div class="select">
-                          <select>
-                            <option>Select dropdown</option>
-                            <option>With options</option>
-                          </select>
-                        </div>
-                      </div>
-                    <p class="help">Optional</p>
+              <div class="field">
+                <label class="label">I want...</label>
+                <div class="control">
+                  <div class="select">
+                    <select>
+                      <option>Select dropdown</option>
+                      <option>With options</option>
+                    </select>
                   </div>
-                  <div class="field mt-6">
-                    <label class="label">I don't want...</label>
-                    <div class="control">
-                        <div class="select">
-                          <select>
-                            <option>Select dropdown</option>
-                            <option>With options</option>
-                          </select>
-                        </div>
-                      </div>
-                    <p class="help">Optional</p>
+                </div>
+                <p class="help">Optional</p>
+              </div>
+              <div class="field mt-6">
+                <label class="label">I don't want...</label>
+                <div class="control">
+                  <div class="select">
+                    <select>
+                      <option>Select dropdown</option>
+                      <option>With options</option>
+                    </select>
                   </div>
-                  <a
-                  href="details.html"
-                  class="button has-text-weight-bold is-primary is-rounded mt-4"
-                  id="filter-submit"
-                  >WHAT'S FOR DINNER?</a>
+                </div>
+                <p class="help">Optional</p>
+              </div>
+              <a
+                href="details.html"
+                class="button has-text-weight-bold is-primary is-rounded mt-4"
+                id="filter-submit"
+                >WHAT'S FOR DINNER?</a
+              >
             </form>
-
           </div>
         </div>
       </div>
