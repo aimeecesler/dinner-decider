@@ -15,15 +15,27 @@ var filterBtnEL = $("#filter-submit");
 var clicked = 0;
 var latitude = "";
 var longitude = "";
+var selectedCuisine = "";
 
 //Functions
+
+window.navigator.geolocation.getCurrentPosition(getCoordinates);
+
+//Get Coordinates function for users location
+function getCoordinates(position) {
+  latitude = position.coords.latitude;
+  longitude = position.coords.longitude;
+  localStorage.setItem("lat",latitude);
+  localStorage.setItem("long", longitude)
+  getCuisines();
+}
 
 //function to create Cusines filter dropdown
 function getCuisines() {
   var queryURL =
     "https://developers.zomato.com/api/v2.1/cuisines?&lat=" +
     latitude +
-    "648&lon=" +
+    "&lon=" +
     longitude;
   $.ajax({
     url: queryURL,
@@ -46,15 +58,27 @@ function getCuisines() {
   });
 }
 
-window.navigator.geolocation.getCurrentPosition(getCoordinates);
-
-//Get Coordinates function for users location
-function getCoordinates(position) {
-  latitude = position.coords.latitude;
-  longitude = position.coords.longitude;
-  console.log(latitude, longitude);
-  getCuisines();
-}
+function getFilteredRestaurant(){
+  latitude = localStorage.getItem("lat");
+  longitude = localStorage.getItem("long");
+  var queryURL =
+    "https://developers.zomato.com/api/v2.1/search?radius=5000&lat=" +
+    latitude +
+    "&lon=" +
+    longitude +
+    "&cuisines=" +
+    selectedCuisine;
+  $.ajax({
+    url: queryURL,
+    method: "GET",
+    headers: {
+      "user-key": "1bd06c11f1c9593babc2673ca5dd7d34",
+      "content-type": "application/json",
+    },
+  }).then(function (response) {
+    console.log(response);
+  });
+};
 
 //function to create the details box
 function createBox() {
@@ -137,5 +161,6 @@ randomBtnEL.on("click", function (event) {
 
 filterBtnEL.on("click", function (event) {
   event.preventDefault();
-  console.log("filtered button clicked");
+  selectedCuisine = "";
+  getFilteredRestaurant();
 });
