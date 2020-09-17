@@ -17,11 +17,6 @@
     ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"
-    ></script>
-    <script
       src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
       integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
       crossorigin="anonymous"
@@ -72,10 +67,16 @@
           id="main-content-column"
         >
           <div class="box py-6">
-            <h1 class="is-size-1 has-text-weight-bold mt-6">Can't decide what you want for dinner?</h1>
+            <h1 class="is-size-1 has-text-weight-bold mt-6">
+              Can't decide what you want for dinner?
+            </h1>
             <h2 class="is-size-2">Let us decide for you!</h2>
-            <button class="button has-text-weight-bold is-primary is-rounded is-large mt-6 mb-6"
-            id="random-submit">WHAT'S FOR DINNER?</button>
+            <button
+              class="button has-text-weight-bold is-primary is-rounded is-large mt-6 mb-6"
+              id="random-submit"
+            >
+              WHAT'S FOR DINNER?
+            </button>
             <!-- <a
               href="details.html"
               class="button has-text-weight-bold is-primary is-rounded is-large mt-6 mb-6"
@@ -83,43 +84,37 @@
               >WHAT'S FOR DINNER?</a
             > -->
           </div>
-          <div id="detailsBoxes" class = "box py-6"></div>
+          <div id="detailsBoxes" class="box py-6"></div>
         </div>
         <div class="column has-text-centered" id="filter-column">
           <div class="box py-6">
             <h1 class="is-size-3 mt-6">Have something specific in mind?</h1>
             <form class="my-6">
-                <div class="field">
-                    <label class="label">I want...</label>
-                    <div class="control">
-                        <div class="select">
-                          <select>
-                            <option>Select dropdown</option>
-                            <option>With options</option>
-                          </select>
-                        </div>
-                      </div>
-                    <p class="help">Optional</p>
+              <div class="field">
+                <label class="label">I want...</label>
+                <div class="control">
+                  <div class="select">
+                    <select class="cuisine-dropdown"></select>
                   </div>
-                  <div class="field mt-6">
-                    <label class="label">I don't want...</label>
-                    <div class="control">
-                        <div class="select">
-                          <select>
-                            <option>Select dropdown</option>
-                            <option>With options</option>
-                          </select>
-                        </div>
-                      </div>
-                    <p class="help">Optional</p>
+                </div>
+                <p class="help">Optional</p>
+              </div>
+              <div class="field mt-6">
+                <label class="label">I don't want...</label>
+                <div class="control">
+                  <div class="select">
+                    <select class="cuisine-dropdown"></select>
                   </div>
-                  <a
-                  href="details.html"
-                  class="button has-text-weight-bold is-primary is-rounded mt-4"
-                  id="filter-submit"
-                  >WHAT'S FOR DINNER?</a>
+                </div>
+                <p class="help">Optional</p>
+              </div>
+              <a
+                href="details.html"
+                class="button has-text-weight-bold is-primary is-rounded mt-4"
+                id="filter-submit"
+                >WHAT'S FOR DINNER?</a
+              >
             </form>
-
           </div>
         </div>
       </div>

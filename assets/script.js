@@ -36,6 +36,49 @@ function createBox() {
     var pCuisineType = $("<p>");
     var webURL = $("<a>");
     var pMenuItem = $("<p>");
+detailsboxEl = $("#detailsBoxes");
+randomBtnEL = $("#random-submit");
+var latitude = "";
+var longitude = "";
+
+window.navigator.geolocation.getCurrentPosition(getCoordinates);
+
+function getCoordinates(position) {
+  latitude = position.coords.latitude;
+  longitude = position.coords.longitude;
+  console.log(latitude, longitude);
+  getCuisines();
+}
+
+//Functions
+function createBox() {
+  // console.log("clicked")
+  var randomNum = Math.floor(Math.random() * 19) + 1;
+  // GET the geoloaction for the user
+  //GET cityID for that location
+  // GET cuisines in that location
+  //create a random number between 1-10 to grab a resturant at that index
+  // var ZomatoURL =
+  //  $.ajax(
+  //   url:,
+  //   method: "GET"
+  // )
+  //create elements
+  var detailsBox1 = $("<article>");
+  var h3Name = $("<h3>");
+  var moreBtn = $("<button>");
+  var pAdress = $("<p>");
+  var pNum = $("<p>");
+  var pHours = $("<p>");
+  var pCuisineType = $("<p>");
+  var webURL = $("<a>");
+  var pMenuItem = $("<p>");
+
+  //attributes
+  moreBtn.addClass(
+    "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
+  );
+  //text
 
     //attributes 
     moreBtn.addClass('button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6');
