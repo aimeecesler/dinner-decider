@@ -97,6 +97,15 @@ $(document).ready(function () {
       var pHours = $("<p>");
       var pCuisineType = $("<p>");
       var webURL = $("<a>");
+      let latCuisineVar = $("initial");
+      let longCuisineVar = $("initial");
+      console.log(response.restaurants[randomNum].latitude);
+
+      longCuisineVar.text(
+        response.restaurants[randomNum].restaurant.location.address
+      );
+
+      console.log(latCuisineVar, longCuisineVar);
 
       //attributes
       moreBtn.addClass(
@@ -110,6 +119,7 @@ $(document).ready(function () {
       pAddress.text(
         response.restaurants[randomNum].restaurant.location.address
       );
+      console.log(pAddress);
       pNum.text(
         "Phone Number: " +
           response.restaurants[randomNum].restaurant.phone_numbers
@@ -175,11 +185,12 @@ $(document).ready(function () {
         var moreBtn = $("<button>");
         var pAddress = $("<p>");
         var pCuisineType = $("<p>");
-        // var mCuisineLat =
-        //   response.restaurants[randomIndex].restaurant.location.latitude;
-        // console.log(mCuisineLat);
+        var lCuisineType =
+          // var mCuisineLat =
+          //   response.restaurants[randomIndex].restaurant.location.latitude;
+          // console.log(mCuisineLat);
 
-        console.log(response);
+          console.log(response);
         h3Name.text(response.restaurants[randomIndex].restaurant.name);
         pAddress.text(
           response.restaurants[randomIndex].restaurant.location.address
