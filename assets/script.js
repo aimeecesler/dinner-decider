@@ -202,7 +202,7 @@ $(document).ready(function () {
     clicked++;
     // console.log(clicked)
     if (clicked > 3) {
-      detailsboxEl.prepend(
+      detailsBoxEl.prepend(
         $("<h2> HANGRY? Pick a place. <h2>").addClass(
           "is-size-1 has-text-weight-bold mt-6"
         )
