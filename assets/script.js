@@ -265,8 +265,8 @@ $(document).ready(function () {
 
   filterBtnEL.on("click", function (event) {
     event.preventDefault();
-    selectedCuisine = $("#selected-cuisine > option").attr("id");
-    // console.log(selectedCuisine);
+    selectedCuisine = $("#selected-cuisine > option:selected").attr("id");
+    console.log(selectedCuisine);
     filteredSearch();
   });
 });
