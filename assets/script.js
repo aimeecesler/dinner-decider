@@ -139,6 +139,11 @@ $(document).ready(function () {
         moreRestID = response.restaurants[randomNum].restaurant.id;
         // console.log("clicked")
         // console.log(response.restaurants[randomNum].restaurant.id);
+        
+        lat = response.restaurants[randomNum].restaurant.location.latitude;
+        lon = response.restaurants[randomNum].restaurant.location.longitude;
+        localStorage.setItem('lat',JSON.stringify(lat));
+        localStorage.setItem("lon",JSON.stringify(lon));
         localStorage.setItem("dMoreRestId",JSON.stringify(moreRestID));
         window.open("details.html");
       });
@@ -182,6 +187,8 @@ $(document).ready(function () {
         moreBtn.attr("id", "moreBtn");
         moreBtn.attr("rest-id", response.restaurants[randomIndex].restaurant.id);
          restId = response.restaurants[randomIndex].restaurant.id;
+         restLat = response.restaurants[randomIndex].restaurant.location.latitude;
+         restLon = response.restaurants[randomIndex].restaurant.location.longitude;
         h3Name.text(response.restaurants[randomIndex].restaurant.name);
         pHours.text(response.restaurants[randomIndex].restaurant.timings);
         pCuisineType.text(
@@ -232,7 +239,11 @@ $(document).ready(function () {
     // event.stopPropagation();
     console.log($(this).children);
     moreRestID = restId;
+    lat = restLat;
+    lon = restLon;
     localStorage.setItem("fMoreRestId",JSON.stringify(moreRestID));
+    localStorage.setItem('lat',JSON.stringify(lat));
+    localStorage.setItem("lon",JSON.stringify(lon));
     window.open("details.html");
   });
 });
