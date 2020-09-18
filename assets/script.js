@@ -16,6 +16,7 @@ $(document).ready(function () {
   var longitude = "";
   var selectedCuisine = "";
   var moreRestID;
+  var restId;
 
   //Functions
   window.navigator.geolocation.getCurrentPosition(getCoordinates);
@@ -178,6 +179,9 @@ $(document).ready(function () {
         var pCuisineType = $("<p>");
         // console.log(response);
         detailsBoxEl.addClass("box py-6");
+        moreBtn.attr("id", "moreBtn");
+        moreBtn.attr("rest-id", response.restaurants[randomIndex].restaurant.id);
+         restId = response.restaurants[randomIndex].restaurant.id;
         h3Name.text(response.restaurants[randomIndex].restaurant.name);
         pHours.text(response.restaurants[randomIndex].restaurant.timings);
         pCuisineType.text(
@@ -191,14 +195,9 @@ $(document).ready(function () {
 
         detailsBox1.append(h3Name, pHours, pCuisineType, moreBtn);
         detailsBoxEl.append(detailsBox1);
-
-        moreBtn.on("click", function (event) {
-          event.preventDefault();
-          moreRestID = response.restaurants[randomNum].restaurant.id;
-          localStorage.setItem("fMoreRestId",JSON.stringify(moreRestID));
-          window.open("details.html");
-        });
       }
+
+      
     });
   }
 
@@ -224,5 +223,16 @@ $(document).ready(function () {
     selectedCuisine = $("#selected-cuisine > option").attr("id");
     // console.log(selectedCuisine);
     filteredSearch();
+  });
+  
+  $("#detailsBoxes").on("click",$("#moreBtn"), function (event) {
+    event.preventDefault();
+    console.log("clicked");
+    
+    // event.stopPropagation();
+    console.log($(this).children);
+    moreRestID = restId;
+    localStorage.setItem("fMoreRestId",JSON.stringify(moreRestID));
+    window.open("details.html");
   });
 });
