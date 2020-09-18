@@ -15,6 +15,7 @@ $(document).ready(function () {
   var latitude = "";
   var longitude = "";
   var selectedCuisine = "";
+  var moreRestInfo = '';
 
   //Functions
 
@@ -194,6 +195,8 @@ $(document).ready(function () {
         
         moreBtn.on("click", function (event) {
           event.preventDefault();
+          console.log($(this).val());
+          // localStorage.setItem("moreRestInfo", );
           window.open("details.html");
         });
       }
