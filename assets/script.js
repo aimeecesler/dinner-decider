@@ -96,7 +96,7 @@ $(document).ready(function () {
       var imgSrc = $("<img>");
       var contentEl = $("<div>");
       var contentDiv = $("<div>");
-      var h1Name = $("<h1>");
+      var h3Name = $("<h1>");
       var pCuisineType = $("<p>");
       var moreBtn = $("<button>");
       var pHours = $("<p>");
@@ -125,8 +125,8 @@ $(document).ready(function () {
       // webURL.attr("href", response.restaurants[randomNum].restaurant.url);
       //text
 
-      h1Name.text(response.restaurants[randomNum].restaurant.name);
-      h1Name.addClass("is-size-2 is-family-code");
+      h3Name.text(response.restaurants[randomNum].restaurant.name);
+      h3Name.addClass("is-size-2 is-family-code");
       // pAdress.text(response.restaurants[randomNum].restaurant.location.address);
       // pNum.text(
       //   "Phone Number: " +
@@ -144,12 +144,11 @@ $(document).ready(function () {
       moreBtn.text("More info");
 
       //append
-      console.log(response);
       boxEl.addClass("box py-6 is-centered");
       imgSrc.attr("src", imgURL);
       imgSrc.attr("id", "preview-image")
       imageFig.append(imgSrc);
-      imageEl.append(imageFig, h1Name);
+      imageEl.append(imageFig, h3Name);
       contentDiv.append(pCuisineType, pHours, moreBtn, faveBtn);
       contentEl.append(contentDiv);
       detailsBox1.append(imageEl, contentEl);
@@ -184,23 +183,38 @@ $(document).ready(function () {
         "content-type": "application/json",
       },
     }).then(function (response) {
+      console.log(queryURL);
       detailsBoxEl.empty();
       for (var i = 0; i < 3; i++) {
         var randomIndex = Math.floor(
           Math.random() * response.restaurants.length
         );
+        var boxEl = $("<div>");
         var detailsBox1 = $("<article>");
         var imageEl = $("<div>");
-        var imageFig = $("<div>");
-        var h3Name = $("<h3>");
+        var imageFig = $("<figure>");
+        var imgSrc = $("<img>");
+        var contentEl = $("<div>");
+        var contentDiv = $("<div>");
+        var h3Name = $("<h1>");
+        var pCuisineType = $("<p>");
         var moreBtn = $("<button>");
         var pHours = $("<p>");
-        var pCuisineType = $("<p>");
+        var faveBtn = $("<button>").text("Add to Favorites");
+        var imgURL = "";
+
+        if (response.restaurants[randomIndex].restaurant.featured_img != undefined) {
+          imgURL = response.restaurants[randomIndex].restaurant.featured_img;
+        } else {
+          imgURL = "https://static.thenounproject.com/png/978640-200.png";
+        }
+
         // console.log(response);
         detailsBoxEl.addClass("box py-6 media");
         imageEl.addClass("media-left");
         h3Name.text(response.restaurants[randomIndex].restaurant.name);
-        pHours.text(response.restaurants[randomIndex].restaurant.timings);
+        h3Name.addClass("is-size-2 is-family-code");
+        pHours.text("Hours: " + response.restaurants[randomIndex].restaurant.timings);
         pCuisineType.text(
           "Type of Cuisine: " +
             response.restaurants[randomIndex].restaurant.cuisines
@@ -209,9 +223,20 @@ $(document).ready(function () {
         moreBtn.addClass(
           "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
         );
+        faveBtn.addClass(
+          "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
+        );
 
-        detailsBox1.append(h3Name, pHours, pCuisineType, moreBtn);
-        detailsBoxEl.append(detailsBox1);
+        boxEl.addClass("box py-6 is-centered");
+        imgSrc.attr("src", imgURL);
+        imgSrc.attr("id", "preview-image")
+        imageFig.append(imgSrc);
+        imageEl.append(imageFig, h3Name);
+        contentDiv.append(pCuisineType, pHours, moreBtn, faveBtn);
+        contentEl.append(contentDiv);
+        detailsBox1.append(imageEl, contentEl);
+        boxEl.append(detailsBox1);
+        detailsBoxEl.prepend(boxEl);
 
         moreBtn.on("click", function (event) {
           event.preventDefault();
