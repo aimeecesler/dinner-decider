@@ -89,12 +89,23 @@ $(document).ready(function () {
 
       var randomNum = Math.floor(Math.random() * 19) + 1;
       //create elements
+      var boxEl = $("<div>");
       var detailsBox1 = $("<article>");
+      var imageEl = $("<div>");
+      var imageFig = $("<figure>");
+      var imgSrc = $("<img>");
       var h3Name = $("<h3>");
       var pCuisineType = $("<p>");
       var moreBtn = $("<button>");
       var pHours = $("<p>");
       var faveBtn = $("<button>").text("Add to Favorites");
+      var imgURL = "";
+
+      if (response.restaurants[randomNum].restaurant.featured_img != undefined) {
+        imgURL = response.restaurants[randomNum].restaurant.featured_img;
+      } else {
+        imgURL = "https://static.thenounproject.com/png/978640-200.png";
+      }
 
       //attributes
       moreBtn.addClass(
@@ -130,8 +141,16 @@ $(document).ready(function () {
       moreBtn.text("More info");
 
       //append
-      detailsBoxEl.append(detailsBox1);
-      detailsBox1.append(h3Name, pCuisineType, pHours, moreBtn, faveBtn);
+      console.log(response);
+      boxEl.addClass("box py-6 media");
+      imageEl.addClass("media-left");
+      imageFig.addClass("image is-64x64");
+      imgSrc.attr("src", imgURL);
+      imageFig.append(imgSrc);
+      imageEl.append(imageFig);
+      detailsBox1.append(imageEl, h3Name, pCuisineType, pHours, moreBtn, faveBtn);
+      boxEl.append(detailsBox1);
+      detailsBoxEl.prepend(boxEl);
       moreBtn.on("click", function (event) {
         event.preventDefault();
         window.open("details.html");
@@ -167,12 +186,15 @@ $(document).ready(function () {
           Math.random() * response.restaurants.length
         );
         var detailsBox1 = $("<article>");
+        var imageEl = $("<div>");
+        var imageFig = $("<div>");
         var h3Name = $("<h3>");
         var moreBtn = $("<button>");
         var pHours = $("<p>");
         var pCuisineType = $("<p>");
         // console.log(response);
-        detailsBoxEl.addClass("box py-6");
+        detailsBoxEl.addClass("box py-6 media");
+        imageEl.addClass("media-left");
         h3Name.text(response.restaurants[randomIndex].restaurant.name);
         pHours.text(response.restaurants[randomIndex].restaurant.timings);
         pCuisineType.text(
