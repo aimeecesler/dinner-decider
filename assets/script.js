@@ -148,8 +148,8 @@ $(document).ready(function () {
   }
 
   function filteredSearch() {
-    latitude = localStorage.getItem("lat");
-    longitude = localStorage.getItem("long");
+    latitude = localStorage.getItem("latitude");
+    longitude = localStorage.getItem("longitude");
     var radius = "1000";
     var queryURL =
       "https://developers.zomato.com/api/v2.1/search?radius=" +
