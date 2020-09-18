@@ -177,13 +177,13 @@ $(document).ready(function () {
         var detailsBox1 = $("<article>");
         var h3Name = $("<h3>");
         var moreBtn = $("<button>");
-        var pAddress = $("<p>");
+        var pHours = $("<p>");
         var pCuisineType = $("<p>");
         // console.log(response);
         detailsBoxEl.addClass("box py-6");
         h3Name.text(response.restaurants[randomIndex].restaurant.name);
-        pAddress.text(
-          response.restaurants[randomIndex].restaurant.location.address
+        pHours.text(
+          response.restaurants[randomIndex].restaurant.timings
         );
         pCuisineType.text(
           "Type of Cuisine: " +
@@ -194,7 +194,7 @@ $(document).ready(function () {
           "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
         );
 
-        detailsBox1.append(h3Name, pAddress, pCuisineType, moreBtn);
+        detailsBox1.append(h3Name, pHours, pCuisineType, moreBtn);
         detailsBoxEl.append(detailsBox1);
         
         moreBtn.on("click", function (event) {
