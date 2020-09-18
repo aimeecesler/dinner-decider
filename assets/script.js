@@ -88,7 +88,7 @@ $(document).ready(function () {
       },
     }).then(function (response) {
       // console.log(response);
-
+      detailsBoxEl.empty();
       var randomNum = Math.floor(Math.random() * 19) + 1;
       //create elements
       var detailsBox1 = $("<article>");
@@ -144,7 +144,7 @@ $(document).ready(function () {
         lon = response.restaurants[randomNum].restaurant.location.longitude;
         localStorage.setItem('lat',JSON.stringify(lat));
         localStorage.setItem("lon",JSON.stringify(lon));
-        localStorage.setItem("dMoreRestId",JSON.stringify(moreRestID));
+        localStorage.setItem("MoreRestId",JSON.stringify(moreRestID));
         window.open("details.html");
       });
     });
@@ -241,7 +241,7 @@ $(document).ready(function () {
     moreRestID = restId;
     lat = restLat;
     lon = restLon;
-    localStorage.setItem("fMoreRestId",JSON.stringify(moreRestID));
+    localStorage.setItem("MoreRestId",JSON.stringify(moreRestID));
     localStorage.setItem('lat',JSON.stringify(lat));
     localStorage.setItem("lon",JSON.stringify(lon));
     window.open("details.html");
