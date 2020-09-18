@@ -97,9 +97,14 @@ $(document).ready(function () {
       var pHours = $("<p>");
       var pCuisineType = $("<p>");
       var webURL = $("<a>");
+      var faveBtn = $("<button>").text("Add to Favorites");
 
       //attributes
       moreBtn.addClass(
+        "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
+      );
+
+      faveBtn.addClass(
         "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
       );
 
@@ -134,7 +139,8 @@ $(document).ready(function () {
         pHours,
         pCuisineType,
         webURL,
-        moreBtn
+        moreBtn,
+        faveBtn
       );
       moreBtn.on("click", function (event) {
         event.preventDefault();
@@ -191,7 +197,7 @@ $(document).ready(function () {
 
         detailsBox1.append(h3Name, pAddress, pCuisineType, moreBtn);
         detailsBoxEl.append(detailsBox1);
-        
+
         moreBtn.on("click", function (event) {
           event.preventDefault();
           window.open("details.html");
