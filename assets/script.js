@@ -15,6 +15,8 @@ $(document).ready(function () {
   var latitude = "";
   var longitude = "";
   var selectedCuisine = "";
+  var moreRestID;
+  var restId;
 
   //Functions
   window.navigator.geolocation.getCurrentPosition(getCoordinates);
@@ -81,7 +83,7 @@ $(document).ready(function () {
       url: queryURL,
       method: "GET",
       headers: {
-        "user-key": "cce5f51e69604fc081fc15cd37642e9d",
+        "user-key": "614739258008e260c13bec9702dcb738",
         "content-type": "application/json",
       },
     }).then(function (response) {
@@ -156,6 +158,15 @@ $(document).ready(function () {
       detailsBoxEl.prepend(boxEl);
       moreBtn.on("click", function (event) {
         event.preventDefault();
+        moreRestID = response.restaurants[randomNum].restaurant.id;
+        // console.log("clicked")
+        // console.log(response.restaurants[randomNum].restaurant.id);
+        
+        lat = response.restaurants[randomNum].restaurant.location.latitude;
+        lon = response.restaurants[randomNum].restaurant.location.longitude;
+        localStorage.setItem('lat',JSON.stringify(lat));
+        localStorage.setItem("lon",JSON.stringify(lon));
+        localStorage.setItem("dMoreRestId",JSON.stringify(moreRestID));
         window.open("details.html");
       });
     });
@@ -212,6 +223,11 @@ $(document).ready(function () {
         // console.log(response);
         detailsBoxEl.addClass("box py-6 media");
         imageEl.addClass("media-left");
+        moreBtn.attr("id", "moreBtn");
+        moreBtn.attr("rest-id", response.restaurants[randomIndex].restaurant.id);
+         restId = response.restaurants[randomIndex].restaurant.id;
+         restLat = response.restaurants[randomIndex].restaurant.location.latitude;
+         restLon = response.restaurants[randomIndex].restaurant.location.longitude;
         h3Name.text(response.restaurants[randomIndex].restaurant.name);
         h3Name.addClass("is-size-2 is-family-code");
         pHours.text("Hours: " + response.restaurants[randomIndex].restaurant.timings);
@@ -238,11 +254,9 @@ $(document).ready(function () {
         boxEl.append(detailsBox1);
         detailsBoxEl.prepend(boxEl);
 
-        moreBtn.on("click", function (event) {
-          event.preventDefault();
-          window.open("details.html");
-        });
       }
+
+      
     });
   }
 
@@ -268,5 +282,20 @@ $(document).ready(function () {
     selectedCuisine = $("#selected-cuisine > option:selected").attr("id");
     console.log(selectedCuisine);
     filteredSearch();
+  });
+  
+  $("#detailsBoxes").on("click",$("#moreBtn"), function (event) {
+    event.preventDefault();
+    console.log("clicked");
+    
+    // event.stopPropagation();
+    console.log($(this).children);
+    moreRestID = restId;
+    lat = restLat;
+    lon = restLon;
+    localStorage.setItem("fMoreRestId",JSON.stringify(moreRestID));
+    localStorage.setItem('lat',JSON.stringify(lat));
+    localStorage.setItem("lon",JSON.stringify(lon));
+    window.open("details.html");
   });
 });
