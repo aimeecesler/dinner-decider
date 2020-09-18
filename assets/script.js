@@ -69,14 +69,15 @@ $(document).ready(function () {
   function restaurantSearch() {
     latitude = localStorage.getItem("latitude");
     longitude = localStorage.getItem("longitude");
-    var radius = "1000";
+    var radius = 1000;
     var queryURL =
       "https://developers.zomato.com/api/v2.1/search?radius=" +
       radius +
       "&lat=" +
       latitude +
       "&lon=" +
-      longitude;
+      longitude +
+      "&sort=real_distance&order=asc";
     $.ajax({
       url: queryURL,
       method: "GET",
@@ -131,7 +132,7 @@ $(document).ready(function () {
 
       //append
       detailsBoxEl.append(detailsBox1);
-      detailsBox1.append(h3Name, pCuisineType, moreBtn, faveBtn, pHours);
+      detailsBox1.append(h3Name, pCuisineType, pHours, moreBtn, faveBtn);
       moreBtn.on("click", function (event) {
         event.preventDefault();
         window.open("details.html");
@@ -140,9 +141,9 @@ $(document).ready(function () {
   }
 
   function filteredSearch() {
-    latitude = localStorage.getItem("lat");
-    longitude = localStorage.getItem("long");
-    var radius = "1000";
+    latitude = localStorage.getItem("latitude");
+    longitude = localStorage.getItem("longitude");
+    var radius = 1000;
     var queryURL =
       "https://developers.zomato.com/api/v2.1/search?radius=" +
       radius +
@@ -169,14 +170,12 @@ $(document).ready(function () {
         var detailsBox1 = $("<article>");
         var h3Name = $("<h3>");
         var moreBtn = $("<button>");
-        var pAddress = $("<p>");
+        var pHours = $("<p>");
         var pCuisineType = $("<p>");
         // console.log(response);
         detailsBoxEl.addClass("box py-6");
         h3Name.text(response.restaurants[randomIndex].restaurant.name);
-        pAddress.text(
-          response.restaurants[randomIndex].restaurant.location.address
-        );
+        pHours.text(response.restaurants[randomIndex].restaurant.timings);
         pCuisineType.text(
           "Type of Cuisine: " +
             response.restaurants[randomIndex].restaurant.cuisines
@@ -186,7 +185,7 @@ $(document).ready(function () {
           "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
         );
 
-        detailsBox1.append(h3Name, pAddress, pCuisineType, moreBtn);
+        detailsBox1.append(h3Name, pHours, pCuisineType, moreBtn);
         detailsBoxEl.append(detailsBox1);
 
         moreBtn.on("click", function (event) {
@@ -206,7 +205,7 @@ $(document).ready(function () {
     clicked++;
     // console.log(clicked)
     if (clicked > 3) {
-      detailsboxEl.prepend(
+      detailsBoxEl.prepend(
         $("<h2> HANGRY? Pick a place. <h2>").addClass(
           "is-size-1 has-text-weight-bold mt-6"
         )
