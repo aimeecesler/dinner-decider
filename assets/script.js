@@ -94,7 +94,9 @@ $(document).ready(function () {
       var imageEl = $("<div>");
       var imageFig = $("<figure>");
       var imgSrc = $("<img>");
-      var h3Name = $("<h3>");
+      var contentEl = $("<div>");
+      var contentDiv = $("<div>");
+      var h1Name = $("<h1>");
       var pCuisineType = $("<p>");
       var moreBtn = $("<button>");
       var pHours = $("<p>");
@@ -123,7 +125,8 @@ $(document).ready(function () {
       // webURL.attr("href", response.restaurants[randomNum].restaurant.url);
       //text
 
-      h3Name.text(response.restaurants[randomNum].restaurant.name);
+      h1Name.text(response.restaurants[randomNum].restaurant.name);
+      h1Name.addClass("is-size-2 is-family-code");
       // pAdress.text(response.restaurants[randomNum].restaurant.location.address);
       // pNum.text(
       //   "Phone Number: " +
@@ -142,13 +145,14 @@ $(document).ready(function () {
 
       //append
       console.log(response);
-      boxEl.addClass("box py-6 media");
-      imageEl.addClass("media-left");
-      imageFig.addClass("image is-64x64");
+      boxEl.addClass("box py-6 is-centered");
       imgSrc.attr("src", imgURL);
+      imgSrc.attr("id", "preview-image")
       imageFig.append(imgSrc);
-      imageEl.append(imageFig);
-      detailsBox1.append(imageEl, h3Name, pCuisineType, pHours, moreBtn, faveBtn);
+      imageEl.append(imageFig, h1Name);
+      contentDiv.append(pCuisineType, pHours, moreBtn, faveBtn);
+      contentEl.append(contentDiv);
+      detailsBox1.append(imageEl, contentEl);
       boxEl.append(detailsBox1);
       detailsBoxEl.prepend(boxEl);
       moreBtn.on("click", function (event) {
