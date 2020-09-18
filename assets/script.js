@@ -15,7 +15,7 @@ $(document).ready(function () {
   var latitude = "";
   var longitude = "";
   var selectedCuisine = "";
-  var moreRestInfo = '';
+  var moreRestID;
 
   //Functions
   window.navigator.geolocation.getCurrentPosition(getCoordinates);
@@ -82,7 +82,7 @@ $(document).ready(function () {
       url: queryURL,
       method: "GET",
       headers: {
-        "user-key": "cce5f51e69604fc081fc15cd37642e9d",
+        "user-key": "614739258008e260c13bec9702dcb738",
         "content-type": "application/json",
       },
     }).then(function (response) {
@@ -135,6 +135,10 @@ $(document).ready(function () {
       detailsBox1.append(h3Name, pCuisineType, pHours, moreBtn, faveBtn);
       moreBtn.on("click", function (event) {
         event.preventDefault();
+        moreRestID = response.restaurants[randomNum].restaurant.id;
+        // console.log("clicked")
+        // console.log(response.restaurants[randomNum].restaurant.id);
+        localStorage.setItem("dMoreRestId",JSON.stringify(moreRestID));
         window.open("details.html");
       });
     });
@@ -190,8 +194,8 @@ $(document).ready(function () {
 
         moreBtn.on("click", function (event) {
           event.preventDefault();
-          console.log($(this).val());
-          // localStorage.setItem("moreRestInfo", );
+          moreRestID = response.restaurants[randomNum].restaurant.id;
+          localStorage.setItem("fMoreRestId",JSON.stringify(moreRestID));
           window.open("details.html");
         });
       }
