@@ -97,16 +97,7 @@ $(document).ready(function () {
       var pHours = $("<p>");
       var pCuisineType = $("<p>");
       var webURL = $("<a>");
-      var restaurantMap = $("<div>");
-      // default Map-
-      // mapboxgl.accessToken =
-      //   "pk.eyJ1IjoiaWNlY2ljbGUwNCIsImEiOiJja2Y1aTN0d2QwbjZ2MzJrdXdrb2pkaWh0In0.R70c-4ioETiAZ9SOJgYNlQ";
-      // restaurantMap = new mapboxgl.Map({
-      //   container: "map",
-      //   style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
-      //   center: [longitude, latitude], // starting position [lng, lat]
-      //   zoom: 9, // starting zoom
-      // });
+
       //attributes
       moreBtn.addClass(
         "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
@@ -143,8 +134,7 @@ $(document).ready(function () {
         pHours,
         pCuisineType,
         webURL,
-        moreBtn,
-        restaurantMap
+        moreBtn
       );
       moreBtn.on("click", function (event) {
         event.preventDefault();
@@ -185,14 +175,10 @@ $(document).ready(function () {
         var moreBtn = $("<button>");
         var pAddress = $("<p>");
         var pCuisineType = $("<p>");
-        var restaurantMap = $(
-          mapboxgl.Map({
-            container: "map",
-            style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
-            center: [longitude, latitude], // starting position [lng, lat]
-            zoom: 9, // starting zoom
-          })
-        );
+        // var mCuisineLat =
+        //   response.restaurants[randomIndex].restaurant.location.latitude;
+        // console.log(mCuisineLat);
+
         console.log(response);
         h3Name.text(response.restaurants[randomIndex].restaurant.name);
         pAddress.text(
@@ -207,13 +193,7 @@ $(document).ready(function () {
           "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
         );
 
-        detailsBox1.append(
-          h3Name,
-          pAddress,
-          pCuisineType,
-          moreBtn,
-          restaurantMap
-        );
+        detailsBox1.append(h3Name, pAddress, pCuisineType, moreBtn);
         detailsBoxEl.append(detailsBox1);
 
         moreBtn.on("click", function (event) {
