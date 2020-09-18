@@ -69,12 +69,12 @@
     </section>
     <!-- Map -->
     <div class="container is-vcentered">
-      <div class="columns is-12">
+      <div class="columns is-vcentered">
         <!-- <div class="column is-full has-text-centered"> -->
-        <div class="box py-12 column is-half">
+        <div class="box mt-6 column is-half">
           <h1
             id="rName"
-            class="is-size-1 has-text-centered has-text-weight-bold mt-6"
+            class="is-valigned is-size-1 has-text-centered has-text-weight-bold mt-6"
           >
             Restaurant Name
           </h1>
@@ -90,10 +90,16 @@
           >
             Restaurant Reviews
           </h3>
+          <h4
+            id="rWebsite"
+            class="is-size-1 has-text-centered has-text-weight-light mt-6"
+          >
+            Restaurant Site
+          </h4>
         </div>
-        <div class="box py-12 column is-half">
+        <div class="box mt-6 column is-half" style="margin-left: 0.5cm">
           <div id="map">
-            <div style="width: 10px; height: 300px"></div>
+            <div style="width: 10px; height: 340px"></div>
             <script>
               mapboxgl.accessToken =
                 "pk.eyJ1IjoiaWNlY2ljbGUwNCIsImEiOiJja2Y1aTN0d2QwbjZ2MzJrdXdrb2pkaWh0In0.R70c-4ioETiAZ9SOJgYNlQ";
@@ -105,20 +111,22 @@
               });
             </script>
           </div>
+          <div style="text-align: center">
+            <button
+              class="button has-text-weight-bold is-primary is-rounded is-large mt-6 mb-6"
+              id="dTryAgain"
+            >
+              Try Again
+            </button>
+            <button
+              class="button has-text-weight-bold is-primary is-rounded is-large mt-6 mb-6"
+              id="dClearResults"
+            >
+              Clear Results
+            </button>
+          </div>
         </div>
       </div>
-      <button
-        class="button is-centered has-text-weight-bold is-primary is-rounded is-large mt-6 mb-6"
-        id="random-submit"
-      >
-        Try Again
-      </button>
-      <button
-        class="button is-centered has-text-weight-bold is-primary is-rounded is-large mt-6 mb-6"
-        id="random-submit"
-      >
-        Clear Results
-      </button>
     </div>
     <!-- </div> -->
     <script src="assets/script.js" async defer></script>
