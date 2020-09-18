@@ -19,6 +19,8 @@ $(document).ready(function () {
   var restId;
   var restLat;
   var restLon; 
+  var favorites = [];
+  var fav;
 
   //Functions
   window.navigator.geolocation.getCurrentPosition(getCoordinates);
@@ -154,7 +156,11 @@ $(document).ready(function () {
         event.preventDefault();
         event.stopPropagation();
         // console.log("clicked");
+        favorites.push(response.restaurants[randomNum].restaurant.name);
+        fav = response.restaurants[randomNum].restaurant.name;
+        localStorage.setItem("favorites", fav);
         
+
       })
 
     });
