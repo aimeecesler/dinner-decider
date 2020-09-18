@@ -18,16 +18,15 @@ $(document).ready(function () {
   var moreRestInfo = '';
 
   //Functions
-
   window.navigator.geolocation.getCurrentPosition(getCoordinates);
 
   //Get Coordinates function for users location
   function getCoordinates(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
-    console.log(latitude, longitude);
-    localStorage.setItem("lat", latitude);
-    localStorage.setItem("long", longitude);
+    // console.log(latitude, longitude);
+    localStorage.setItem("latitude", latitude);
+    localStorage.setItem("longitude", longitude);
     getCuisines();
   }
 
@@ -48,7 +47,7 @@ $(document).ready(function () {
         "content-type": "application/json",
       },
     }).then(function (response) {
-      console.log(response);
+      // console.log(response);
       var cuisineArr = response.cuisines;
       for (
         var cuisineIndex = 0;
@@ -65,19 +64,19 @@ $(document).ready(function () {
 
   // Search the resturant results based on location
 
+  // Search the resturant results based on location
+
   function restaurantSearch() {
-    latitude = localStorage.getItem("lat");
-    longitude = localStorage.getItem("long");
-    console.log(latitude, longitude);
-    var radius = 5000;
+    latitude = localStorage.getItem("latitude");
+    longitude = localStorage.getItem("longitude");
+    var radius = "1000";
     var queryURL =
       "https://developers.zomato.com/api/v2.1/search?radius=" +
       radius +
       "&lat=" +
       latitude +
       "&lon=" +
-      longitude +
-      "&sort=real_distance&order=asc";
+      longitude;
     $.ajax({
       url: queryURL,
       method: "GET",
@@ -86,35 +85,39 @@ $(document).ready(function () {
         "content-type": "application/json",
       },
     }).then(function (response) {
-      // console.log(response)
+      // console.log(response);
 
       var randomNum = Math.floor(Math.random() * 19) + 1;
       //create elements
       var detailsBox1 = $("<article>");
       var h3Name = $("<h3>");
-      var moreBtn = $("<button>");
-      var pAddress = $("<p>");
-      var pNum = $("<p>");
-      var pHours = $("<p>");
       var pCuisineType = $("<p>");
-      var webURL = $("<a>");
+      var moreBtn = $("<button>");
+      var pHours = $("<p>");
+      var faveBtn = $("<button>").text("Add to Favorites");
 
       //attributes
       moreBtn.addClass(
         "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
       );
 
-      webURL.attr("href", response.restaurants[randomNum].restaurant.url);
+      faveBtn.addClass(
+        "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
+      );
+
+      // webURL.attr("href", response.restaurants[randomNum].restaurant.url);
+      // //attributes
+      // moreBtn.addClass('button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6');
+
+      // webURL.attr("href", response.restaurants[randomNum].restaurant.url);
       //text
 
       h3Name.text(response.restaurants[randomNum].restaurant.name);
-      pAddress.text(
-        response.restaurants[randomNum].restaurant.location.address
-      );
-      pNum.text(
-        "Phone Number: " +
-          response.restaurants[randomNum].restaurant.phone_numbers
-      );
+      // pAdress.text(response.restaurants[randomNum].restaurant.location.address);
+      // pNum.text(
+      //   "Phone Number: " +
+      //     response.restaurants[randomNum].restaurant.phone_numbers
+      // );
       pHours.text(
         "Hours: " + response.restaurants[randomNum].restaurant.timings
       );
@@ -122,21 +125,13 @@ $(document).ready(function () {
         "Type of Cuisine: " +
           response.restaurants[randomNum].restaurant.cuisines
       );
-      webURL.text("Visit Site");
+      // webURL.text("Visit Site");
 
       moreBtn.text("More info");
 
       //append
       detailsBoxEl.append(detailsBox1);
-      detailsBox1.append(
-        h3Name,
-        pAddress,
-        pNum,
-        pHours,
-        pCuisineType,
-        webURL,
-        moreBtn
-      );
+      detailsBox1.append(h3Name, pCuisineType, moreBtn, faveBtn, pHours);
       moreBtn.on("click", function (event) {
         event.preventDefault();
         window.open("details.html");
@@ -147,7 +142,7 @@ $(document).ready(function () {
   function filteredSearch() {
     latitude = localStorage.getItem("lat");
     longitude = localStorage.getItem("long");
-    var radius = 5000;
+    var radius = "1000";
     var queryURL =
       "https://developers.zomato.com/api/v2.1/search?radius=" +
       radius +
@@ -176,7 +171,8 @@ $(document).ready(function () {
         var moreBtn = $("<button>");
         var pAddress = $("<p>");
         var pCuisineType = $("<p>");
-        console.log(response);
+        // console.log(response);
+        detailsBoxEl.addClass("box py-6");
         h3Name.text(response.restaurants[randomIndex].restaurant.name);
         pAddress.text(
           response.restaurants[randomIndex].restaurant.location.address
@@ -192,7 +188,7 @@ $(document).ready(function () {
 
         detailsBox1.append(h3Name, pAddress, pCuisineType, moreBtn);
         detailsBoxEl.append(detailsBox1);
-        
+
         moreBtn.on("click", function (event) {
           event.preventDefault();
           console.log($(this).val());
@@ -223,7 +219,7 @@ $(document).ready(function () {
   filterBtnEL.on("click", function (event) {
     event.preventDefault();
     selectedCuisine = $("#selected-cuisine > option").attr("id");
-    console.log(selectedCuisine);
+    // console.log(selectedCuisine);
     filteredSearch();
   });
 });
