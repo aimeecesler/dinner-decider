@@ -255,7 +255,7 @@ $(document).ready(function () {
         detailsBoxEl.prepend(boxEl);
 
       }
-
+      detailsBoxEl.prepend($("<h1>").text("Here are your top 3 results!").addClass("is-size-3"));
       
     });
   }
