@@ -10,7 +10,15 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css"
     />
+    <!-- mapbox stylesheet -->
+
     <link rel="stylesheet" href="assets/style.css" />
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <!-- Mapbox script -->
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <script
       defer
       src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
@@ -83,8 +91,10 @@
               id="random-submit"
               >WHAT'S FOR DINNER?</a
             > -->
+            <div id="map" style="width: 400px; height: 300px"></div>
+            <script></script>
           </div>
-          <div id="detailsBoxes" class="box py-6"></div>
+          <div id="detailsBoxes" id="map" class="box py-6"></div>
         </div>
         <div class="column has-text-centered" id="filter-column">
           <div class="box py-6">
