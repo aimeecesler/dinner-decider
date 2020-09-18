@@ -165,6 +165,7 @@ $(document).ready(function () {
         "content-type": "application/json",
       },
     }).then(function (response) {
+      detailsBoxEl.empty();
       for (var i = 0; i < 3; i++) {
         var randomIndex = Math.floor(
           Math.random() * response.restaurants.length
@@ -190,6 +191,11 @@ $(document).ready(function () {
 
         detailsBox1.append(h3Name, pAddress, pCuisineType, moreBtn);
         detailsBoxEl.append(detailsBox1);
+        
+        moreBtn.on("click", function (event) {
+          event.preventDefault();
+          window.open("details.html");
+        });
       }
     });
   }
