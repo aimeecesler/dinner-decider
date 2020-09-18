@@ -17,6 +17,7 @@ $(document).ready(function () {
   var selectedCuisine = "";
   var moreRestID;
   var restId;
+  var previewBoxEl;
 
   //Functions
   window.navigator.geolocation.getCurrentPosition(getCoordinates);
@@ -68,6 +69,13 @@ $(document).ready(function () {
   // Search the resturant results based on location
 
   function restaurantSearch() {
+    if (clicked === 1){
+      detailsBoxEl.empty();
+      var headerEl = $("<h1>").text("Here's what we found for you!").addClass("is-size-3");
+      detailsBoxEl.append(headerEl);
+      previewBoxEl = $("<div>");
+      detailsBoxEl.append(previewBoxEl);
+    } else {};
     latitude = localStorage.getItem("latitude");
     longitude = localStorage.getItem("longitude");
     var radius = 1000;
@@ -155,7 +163,7 @@ $(document).ready(function () {
       contentEl.append(contentDiv);
       detailsBox1.append(imageEl, contentEl);
       boxEl.append(detailsBox1);
-      detailsBoxEl.prepend(boxEl);
+      previewBoxEl.prepend(boxEl);
       moreBtn.on("click", function (event) {
         event.preventDefault();
         moreRestID = response.restaurants[randomNum].restaurant.id;
@@ -272,6 +280,7 @@ $(document).ready(function () {
           "is-size-1 has-text-weight-bold mt-6"
         )
       );
+      clicked = 0;
     } else {
       restaurantSearch();
     }
@@ -280,7 +289,7 @@ $(document).ready(function () {
   filterBtnEL.on("click", function (event) {
     event.preventDefault();
     selectedCuisine = $("#selected-cuisine > option:selected").attr("id");
-    console.log(selectedCuisine);
+    clicked = 0;
     filteredSearch();
   });
   
