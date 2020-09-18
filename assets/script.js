@@ -24,7 +24,7 @@ $(document).ready(function () {
   function getCoordinates(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
-    console.log(latitude, longitude);
+    // console.log(latitude, longitude);
     localStorage.setItem("latitude", latitude);
     localStorage.setItem("longitude", longitude);
     getCuisines();
@@ -47,7 +47,7 @@ $(document).ready(function () {
         "content-type": "application/json",
       },
     }).then(function (response) {
-      console.log(response);
+      // console.log(response);
       var cuisineArr = response.cuisines;
       for (
         var cuisineIndex = 0;
@@ -84,7 +84,7 @@ $(document).ready(function () {
         "content-type": "application/json",
       },
     }).then(function (response) {
-      console.log(response);
+      // console.log(response);
 
       var randomNum = Math.floor(Math.random() * 19) + 1;
       //create elements
@@ -179,7 +179,7 @@ $(document).ready(function () {
         var moreBtn = $("<button>");
         var pAddress = $("<p>");
         var pCuisineType = $("<p>");
-        console.log(response);
+        // console.log(response);
         detailsBoxEl.addClass("box py-6");
         h3Name.text(response.restaurants[randomIndex].restaurant.name);
         pAddress.text(
@@ -225,7 +225,7 @@ $(document).ready(function () {
   filterBtnEL.on("click", function (event) {
     event.preventDefault();
     selectedCuisine = $("#selected-cuisine > option").attr("id");
-    console.log(selectedCuisine);
+    // console.log(selectedCuisine);
     filteredSearch();
   });
 });
