@@ -15,8 +15,9 @@ $(document).ready(function () {
   var latitude = "";
   var longitude = "";
   var selectedCuisine = "";
+  var deselectedCuisine = "";
+  var deselectedCuisineName = "";
   var moreRestID;
-  var restId;
   var previewBoxEl;
 
   //Functions
@@ -124,6 +125,15 @@ $(document).ready(function () {
         imgURL = "https://static.thenounproject.com/png/978640-200.png";
       }
 
+      var cuisines = response.restaurants[randomNum].restaurant.cuisines;
+      var hours = response.restaurants[randomNum].restaurant.timings;
+      if (cuisines === ""){
+        cuisines = "N/A"
+      }
+      if (hours === ""){
+        hours = "N/A"
+      }
+
       //attributes
       moreBtn.addClass(
         "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
@@ -134,11 +144,11 @@ $(document).ready(function () {
       h3Name.text(response.restaurants[randomNum].restaurant.name);
       h3Name.addClass("is-size-2 is-family-code");
       pHours.text(
-        "Hours: " + response.restaurants[randomNum].restaurant.timings
+        "Hours: " + hours
       );
       pCuisineType.text(
         "Type of Cuisine: " +
-          response.restaurants[randomNum].restaurant.cuisines
+          cuisines
       );
 
       moreBtn.text("More info");
@@ -181,10 +191,6 @@ $(document).ready(function () {
         "content-type": "application/json",
       },
     }).then(function (response) {
-      // if just positive - do the below
-      // if just negative, do search with no cuisine filter and filter through results so the negative does not display
-      // if both, search with positive cuisine and filter through results so the negative does not display
-      console.log(queryURL);
       detailsBoxEl.empty();
       for (var i = 0; i < 3; i++) {
         var randomIndex = Math.floor(
@@ -211,42 +217,57 @@ $(document).ready(function () {
         } else {
           imgURL = "https://static.thenounproject.com/png/978640-200.png";
         }
+        console.log(
+          response.restaurants[randomIndex].restaurant.cuisines.includes(
+            deselectedCuisineName
+          )
+        );
+        if (
+          response.restaurants[randomIndex].restaurant.cuisines.includes(
+            deselectedCuisineName
+          ) === true
+        ) {
+          i--;
+        } else {
+          var cuisines = response.restaurants[randomIndex].restaurant.cuisines;
+          var hours = response.restaurants[randomIndex].restaurant.timings;
+          if (cuisines === ""){
+            cuisines = "N/A"
+          }
+          if (hours === ""){
+            hours = "N/A"
+          }
+          detailsBoxEl.addClass("box py-6 media");
+          imageEl.addClass("media-left");
+          moreBtn.attr("id", "moreBtn");
+          moreBtn.attr(
+            "rest-id",
+            response.restaurants[randomIndex].restaurant.id
+          );
+          h3Name.text(response.restaurants[randomIndex].restaurant.name);
+          h3Name.addClass("is-size-2 is-family-code");
+          pHours.text("Hours: " + hours);
+          pCuisineType.text("Type of Cuisine: " + cuisines);
+          moreBtn.text("More info");
+          moreBtn.addClass(
+            "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
+          );
+          faveBtn.addClass(
+            "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
+          );
+          // faveBtn.attr("id", "fave-btn");
 
-        // console.log(response);
-        detailsBoxEl.addClass("box py-6 media");
-        imageEl.addClass("media-left");
-        moreBtn.attr("id", "moreBtn");
-        moreBtn.attr(
-          "rest-id",
-          response.restaurants[randomIndex].restaurant.id
-        );
-        h3Name.text(response.restaurants[randomIndex].restaurant.name);
-        h3Name.addClass("is-size-2 is-family-code");
-        pHours.text(
-          "Hours: " + response.restaurants[randomIndex].restaurant.timings
-        );
-        pCuisineType.text(
-          "Type of Cuisine: " +
-            response.restaurants[randomIndex].restaurant.cuisines
-        );
-        moreBtn.text("More info");
-        moreBtn.addClass(
-          "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
-        );
-        faveBtn.addClass(
-          "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
-        );
-
-        boxEl.addClass("box py-6 is-centered");
-        imgSrc.attr("src", imgURL);
-        imgSrc.attr("id", "preview-image");
-        imageFig.append(imgSrc);
-        imageEl.append(imageFig, h3Name);
-        contentDiv.append(pCuisineType, pHours, moreBtn, faveBtn);
-        contentEl.append(contentDiv);
-        detailsBox1.append(imageEl, contentEl);
-        boxEl.append(detailsBox1);
-        detailsBoxEl.prepend(boxEl);
+          boxEl.addClass("box py-6 is-centered");
+          imgSrc.attr("src", imgURL);
+          imgSrc.attr("id", "preview-image");
+          imageFig.append(imgSrc);
+          imageEl.append(imageFig, h3Name);
+          contentDiv.append(pCuisineType, pHours, moreBtn, faveBtn);
+          contentEl.append(contentDiv);
+          detailsBox1.append(imageEl, contentEl);
+          boxEl.append(detailsBox1);
+          detailsBoxEl.prepend(boxEl);
+        }
       }
       detailsBoxEl.prepend(
         $("<h1>").text("Here are your top 3 results!").addClass("is-size-3")
@@ -276,6 +297,7 @@ $(document).ready(function () {
     event.preventDefault();
     selectedCuisine = $("#selected-cuisine > option:selected").attr("id");
     deselectedCuisine = $("#unselected-cuisine > option:selected").attr("id");
+    deselectedCuisineName = $("#unselected-cuisine > option:selected").val();
     clicked = 0;
     var errorMessage = $("#error-message");
     if (selectedCuisine === "null" && deselectedCuisine === "null") {
@@ -300,9 +322,13 @@ $(document).ready(function () {
     event.preventDefault();
     console.log("clicked");
     // event.stopPropagation();
-    console.log($(this).attr("rest-id"));
+    // console.log($(this).attr("rest-id"));
     moreRestID = $(this).attr("rest-id");
     localStorage.setItem("moreRestId", moreRestID);
     window.open("details.html");
   });
 });
+
+// $("#detailsBoxes").on("click", "#fave-btn", function(event){
+//   console.log("clicked fave");
+// })
