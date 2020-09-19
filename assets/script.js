@@ -391,8 +391,15 @@ $(document).ready(function () {
     clicked = 0;
     filteredSearch();
   });
+
+
   
   // $("#detailsBoxes").on("click",$("#moreBtn"), function (event) {
+  //       event.preventDefault();
+  //       console.log("clicked")
+  //       moreRestID = $(this).attr("rest-id");
+  //       localStorage.setItem("moreRestId", moreRestID);
+  //       window.open("details.html");
   //   event.preventDefault();
   //   // console.log("clicked");
     
