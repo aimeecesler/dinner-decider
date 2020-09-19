@@ -6,6 +6,13 @@
     <title>Dinner Decider</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Mapbox API -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css"
@@ -60,22 +67,60 @@
         </div>
       </div>
     </section>
-    <div class="container is-fluid">
-      <div class="columns is-12">
-        <div class="column is-full has-text-centered" id="main-content-column">
-          <div class="box py-12">
-            <h1 class="is-size-1 has-text-centered has-text-weight-bold mt-6">
-              Details go here
-            </h1>
+    <!-- Map -->
+    <div class="container is-vcentered">
+      <div class="columns is-vcentered">
+        <!-- <div class="column is-full has-text-centered"> -->
+        <div class="box mt-6 column is-half">
+          <h1
+            id="rName"
+            class="is-valigned is-size-1 has-text-centered has-text-weight-bold mt-6"
+          >
+            Restaurant Name
+          </h1>
+          <h2
+            id="rTimings"
+            class="is-size-1 has-text-centered has-text-weight-light mt-6"
+          >
+            Restaurant Timings
+          </h2>
+          <h3
+            id="rReviews"
+            class="is-size-1 has-text-centered has-text-weight-light mt-6"
+          >
+            Restaurant Reviews
+          </h3>
+          <h4
+            id="rWebsite"
+            class="is-size-1 has-text-centered has-text-weight-light mt-6"
+          >
+            Restaurant Site
+          </h4>
+        </div>
+        <div class="box mt-6 column is-half" style="margin-left: 0.5cm">
+          <div id="map">
+            <div style="width: 10px; height: 340px"></div>
+            <script>
+              mapboxgl.accessToken =
+                "pk.eyJ1IjoiaWNlY2ljbGUwNCIsImEiOiJja2Y1aTN0d2QwbjZ2MzJrdXdrb2pkaWh0In0.R70c-4ioETiAZ9SOJgYNlQ";
+              var map = new mapboxgl.Map({
+                container: "map",
+                style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
+                center: [-74.5, 40], // starting position [lng, lat]
+                zoom: 12, // starting zoom
+              });
+            </script>
+          </div>
+          <div style="text-align: center">
             <button
-              class="button is-centered has-text-weight-bold is-primary is-rounded is-large mt-6 mb-6"
-              id="random-submit"
+              class="button has-text-weight-bold is-primary is-rounded is-large mt-6 mb-6"
+              id="dTryAgain"
             >
               Try Again
             </button>
             <button
-              class="button is-centered has-text-weight-bold is-primary is-rounded is-large mt-6 mb-6"
-              id="random-submit"
+              class="button has-text-weight-bold is-primary is-rounded is-large mt-6 mb-6"
+              id="dClearResults"
             >
               Clear Results
             </button>
