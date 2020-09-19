@@ -6,9 +6,14 @@
 
 Dinner Decider provides users with a fun, straight-forward solution to a universal problem: choosing where (or what!) to eat.
 
-No installation is necessary; users may simply visit the website by clicking this [link.](https://aimeecesler.github.io/dinner-decider/)
+No installation is necessary; simply visit the website by clicking this [link.](https://aimeecesler.github.io/dinner-decider/)
 
 ## Usage
+
+A browser-based app, Dinner Decider allows for a couple different methods of selecting a restaurant:
+
+- Utilizing the user's location, Dinner Decider will suggest a nearby restaurant at random. By presenting options one at a time, user's will avoid that all-too familiar feeling of information overload. Anyone who has ever spent more time scrolling through Netflix, trying to select something to watch, than they actually spent watching something will understand! Sometimes, less really is more.
+- While we don't always know what we do know what we want to eat, sometimes we know what we DON'T want! There are two optional drop-down menus in the sidebar that allow users to narrow the scope of their results.
 
 #### Credits
 
