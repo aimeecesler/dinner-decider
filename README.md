@@ -1,10 +1,12 @@
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs) [![Version](https://badge.fury.io/gh/tterb%2FHyde.svg)](https://badge.fury.io/gh/tterb%2FHyde)
+
 # Dinner Decider
 
 ## Installation
 
-Dinner Decider provides clients with a fun, user-friendly solution to a relatable problem: choosing where (or what!) to eat.
+Dinner Decider provides users with a fun, straight-forward solution to a universal problem: choosing where (or what!) to eat.
 
-No installation is necessary; clients may simply visit the website by clicking this [link.](https://aimeecesler.github.io/dinner-decider/)
+No installation is necessary; users may simply visit the website by clicking this [link.](https://aimeecesler.github.io/dinner-decider/)
 
 ## Usage
 
