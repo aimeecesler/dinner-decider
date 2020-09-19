@@ -15,7 +15,7 @@ A browser-based app, Dinner Decider allows for a couple different methods of sel
 - Utilizing the user's location, Dinner Decider will suggest a nearby restaurant at random. By presenting options one at a time, user's will avoid that all-too familiar feeling of information overload. Anyone who has ever spent more time scrolling through Netflix, trying to select something to watch, than they actually spent watching something will understand! Sometimes, less really is more.
 - While we don't always know what we do know what we want to eat, sometimes we know what we DON'T want, which can be just as important! There are two optional drop-down menus in the sidebar that allow users to narrow the scope of their results, if so desired.
 
-When the user clicks the "what's for dinner?" button, a local restaurant will be presented onscreen. From there, users have the option to get more information (such as reviews, a link to the restaurant website, and an interactive map), add that particular restaurant to a list of their "favorites," or begin the search over again.
+When the user clicks the "what's for dinner?" button, a local restaurant will be presented onscreen. From there, users have the option to get more information (such as reviews, a link to the restaurant website, and an interactive map), add that particular restaurant to a list of their "favorites," or begin the search over again until the user is satisfied with their result.
 
 #### Credits
 
