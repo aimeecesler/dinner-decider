@@ -78,7 +78,7 @@
               WHAT'S FOR DINNER?
             </button>
           </div>
-          <div id="detailsBoxes"></div>
+          <div id="detailsBoxes" class="column has-text-centered"></div>
         </div>
         <div class="column has-text-centered" id="filter-column">
           <div class="box py-6">
@@ -88,25 +88,21 @@
                 <label class="label">I want...</label>
                 <div class="control">
                   <div class="select">
-                    <select
-                      class="cuisine-dropdown"
-                      id="selected-cuisine"
-                    ></select>
+                    <select class="cuisine-dropdown" id="selected-cuisine">
+                      <option id="null">Select Cuisine</option>
+                    </select>
                   </div>
                 </div>
-                <p class="help">Optional</p>
               </div>
               <div class="field mt-6">
                 <label class="label">I don't want...</label>
                 <div class="control">
                   <div class="select">
-                    <select
-                      class="cuisine-dropdown"
-                      id="unselected-cuisine"
-                    ></select>
+                    <select class="cuisine-dropdown" id="unselected-cuisine">
+                      <option id="null">Select Cuisine</option>
+                    </select>
                   </div>
                 </div>
-                <p class="help">Optional</p>
               </div>
               <button
                 class="button has-text-weight-bold is-primary is-rounded mt-4"

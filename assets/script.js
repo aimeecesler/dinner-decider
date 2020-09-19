@@ -1,4 +1,4 @@
-//Bulga nav bar burger click function
+//Bulma nav bar burger click function
 $(document).ready(function () {
   // Check for click events on the navbar burger icon
   $(".navbar-burger").click(function () {
@@ -15,6 +15,9 @@ $(document).ready(function () {
   var latitude = "";
   var longitude = "";
   var selectedCuisine = "";
+  var moreRestID;
+  var restId;
+  var previewBoxEl;
 
   //Functions
   window.navigator.geolocation.getCurrentPosition(getCoordinates);
@@ -66,6 +69,13 @@ $(document).ready(function () {
   // Search the resturant results based on location
 
   function restaurantSearch() {
+    if (clicked === 1){
+      detailsBoxEl.empty();
+      var headerEl = $("<h1>").text("Here's what we found for you!").addClass("is-size-3");
+      detailsBoxEl.append(headerEl);
+      previewBoxEl = $("<div>");
+      detailsBoxEl.append(previewBoxEl);
+    } else {};
     latitude = localStorage.getItem("latitude");
     longitude = localStorage.getItem("longitude");
     var radius = 1000;
@@ -81,7 +91,7 @@ $(document).ready(function () {
       url: queryURL,
       method: "GET",
       headers: {
-        "user-key": "cce5f51e69604fc081fc15cd37642e9d",
+        "user-key": "614739258008e260c13bec9702dcb738",
         "content-type": "application/json",
       },
     }).then(function (response) {
@@ -89,12 +99,25 @@ $(document).ready(function () {
 
       var randomNum = Math.floor(Math.random() * 19) + 1;
       //create elements
+      var boxEl = $("<div>");
       var detailsBox1 = $("<article>");
-      var h3Name = $("<h3>");
+      var imageEl = $("<div>");
+      var imageFig = $("<figure>");
+      var imgSrc = $("<img>");
+      var contentEl = $("<div>");
+      var contentDiv = $("<div>");
+      var h3Name = $("<h1>");
       var pCuisineType = $("<p>");
       var moreBtn = $("<button>");
       var pHours = $("<p>");
       var faveBtn = $("<button>").text("Add to Favorites");
+      var imgURL = "";
+
+      if (response.restaurants[randomNum].restaurant.featured_img != undefined) {
+        imgURL = response.restaurants[randomNum].restaurant.featured_img;
+      } else {
+        imgURL = "https://static.thenounproject.com/png/978640-200.png";
+      }
 
       //attributes
       moreBtn.addClass(
@@ -113,6 +136,7 @@ $(document).ready(function () {
       //text
 
       h3Name.text(response.restaurants[randomNum].restaurant.name);
+      h3Name.addClass("is-size-2 is-family-code");
       // pAdress.text(response.restaurants[randomNum].restaurant.location.address);
       // pNum.text(
       //   "Phone Number: " +
@@ -128,14 +152,21 @@ $(document).ready(function () {
       // webURL.text("Visit Site");
 
       moreBtn.text("More info");
+      moreBtn.attr("id", "moreBtn");
+      moreBtn.attr("rest-id", response.restaurants[randomNum].restaurant.id);
 
       //append
-      detailsBoxEl.append(detailsBox1);
-      detailsBox1.append(h3Name, pCuisineType, pHours, moreBtn, faveBtn);
-      moreBtn.on("click", function (event) {
-        event.preventDefault();
-        window.open("details.html");
-      });
+      boxEl.addClass("box py-6 is-centered");
+      imgSrc.attr("src", imgURL);
+      imgSrc.attr("id", "preview-image")
+      imageFig.append(imgSrc);
+      imageEl.append(imageFig, h3Name);
+      contentDiv.append(pCuisineType, pHours, moreBtn, faveBtn);
+      contentEl.append(contentDiv);
+      detailsBox1.append(imageEl, contentEl);
+      boxEl.append(detailsBox1);
+      previewBoxEl.prepend(boxEl);
+      
     });
   }
 
@@ -161,20 +192,45 @@ $(document).ready(function () {
         "content-type": "application/json",
       },
     }).then(function (response) {
+      // if both = null, modal - you must select one option
+      // if both = same id - you must be hungry, you're delirious! Error: Positive and negative filters cannot be the same cuisine.
+      // if just positive - do the below
+      // if just negative, do search with no cuisine filter and filter through results so the negative does not display
+      // if both, search with positive cuisine and filter through results so the negative does not display
+      console.log(queryURL);
       detailsBoxEl.empty();
       for (var i = 0; i < 3; i++) {
         var randomIndex = Math.floor(
           Math.random() * response.restaurants.length
         );
+        var boxEl = $("<div>");
         var detailsBox1 = $("<article>");
-        var h3Name = $("<h3>");
+        var imageEl = $("<div>");
+        var imageFig = $("<figure>");
+        var imgSrc = $("<img>");
+        var contentEl = $("<div>");
+        var contentDiv = $("<div>");
+        var h3Name = $("<h1>");
+        var pCuisineType = $("<p>");
         var moreBtn = $("<button>");
         var pHours = $("<p>");
-        var pCuisineType = $("<p>");
+        var faveBtn = $("<button>").text("Add to Favorites");
+        var imgURL = "";
+
+        if (response.restaurants[randomIndex].restaurant.featured_img != undefined) {
+          imgURL = response.restaurants[randomIndex].restaurant.featured_img;
+        } else {
+          imgURL = "https://static.thenounproject.com/png/978640-200.png";
+        }
+
         // console.log(response);
-        detailsBoxEl.addClass("box py-6");
+        detailsBoxEl.addClass("box py-6 media");
+        imageEl.addClass("media-left");
+        moreBtn.attr("id", "moreBtn");
+        moreBtn.attr("rest-id", response.restaurants[randomIndex].restaurant.id);
         h3Name.text(response.restaurants[randomIndex].restaurant.name);
-        pHours.text(response.restaurants[randomIndex].restaurant.timings);
+        h3Name.addClass("is-size-2 is-family-code");
+        pHours.text("Hours: " + response.restaurants[randomIndex].restaurant.timings);
         pCuisineType.text(
           "Type of Cuisine: " +
             response.restaurants[randomIndex].restaurant.cuisines
@@ -183,15 +239,24 @@ $(document).ready(function () {
         moreBtn.addClass(
           "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
         );
+        faveBtn.addClass(
+          "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
+        );
 
-        detailsBox1.append(h3Name, pHours, pCuisineType, moreBtn);
-        detailsBoxEl.append(detailsBox1);
+        boxEl.addClass("box py-6 is-centered");
+        imgSrc.attr("src", imgURL);
+        imgSrc.attr("id", "preview-image")
+        imageFig.append(imgSrc);
+        imageEl.append(imageFig, h3Name);
+        contentDiv.append(pCuisineType, pHours, moreBtn, faveBtn);
+        contentEl.append(contentDiv);
+        detailsBox1.append(imageEl, contentEl);
+        boxEl.append(detailsBox1);
+        detailsBoxEl.prepend(boxEl);
 
-        moreBtn.on("click", function (event) {
-          event.preventDefault();
-          window.open("details.html");
-        });
       }
+      detailsBoxEl.prepend($("<h1>").text("Here are your top 3 results!").addClass("is-size-3"));
+      
     });
   }
 
@@ -207,6 +272,7 @@ $(document).ready(function () {
           "is-size-1 has-text-weight-bold mt-6"
         )
       );
+      clicked = 0;
     } else {
       restaurantSearch();
     }
@@ -214,8 +280,18 @@ $(document).ready(function () {
 
   filterBtnEL.on("click", function (event) {
     event.preventDefault();
-    selectedCuisine = $("#selected-cuisine > option").attr("id");
-    // console.log(selectedCuisine);
+    selectedCuisine = $("#selected-cuisine > option:selected").attr("id");
+    clicked = 0;
     filteredSearch();
+  });
+  
+  $("#detailsBoxes").on("click","#moreBtn", function (event) {
+    event.preventDefault();
+    console.log("clicked");
+    // event.stopPropagation();
+    console.log($(this).attr("rest-id"));
+    moreRestID = $(this).attr("rest-id");
+    localStorage.setItem("moreRestId", moreRestID);
+    window.open("details.html");
   });
 });
