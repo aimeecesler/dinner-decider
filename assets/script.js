@@ -38,10 +38,21 @@ $(document).ready(function () {
     localStorage.setItem("longitude", longitude);
     getCuisines();
   }
-  // function storeFavorites(){
+  //store the favorite resturants 
+  function storeFavorites(){
+    console.log("clicked")
+    // fav = response.restaurants[randomIndex].restaurant.name;
+    // favoritesName.push(fav);
+    // localStorage.setItem("FavName", JSON.stringify(favoritesName));
+    // favId = response.restaurants[randomIndex].restaurant.id; 
+    // favoritesId.push(favId);
+    // localStorage.setItem("FavID", JSON.stringify(favoritesId));
+    // console.log(favId);
+    // console.log(fav);
     
-  // }
+  }
 
+  //get the favorite resturants list on page load 
   function getfavorites (){
     if(localStorage.getItem("FavName") != null && localStorage.getItem("FavID") !=null ){
       var localStorageArrName = JSON.parse(localStorage.getItem("FavName").split(","));
@@ -53,6 +64,17 @@ $(document).ready(function () {
   };
   getfavorites();
   //Functions
+  //get resturant ID 
+  function gitRestId (){
+    moreRestID = restId;
+    lat = restLat;
+    lon = restLon;
+    localStorage.setItem("fMoreRestId",JSON.stringify(moreRestID));
+    localStorage.setItem('lat',JSON.stringify(lat));
+    localStorage.setItem("lon",JSON.stringify(lon));
+    window.open("details.html");
+
+  };
 
   //function to create Cusines filter dropdown
   function getCuisines() {
@@ -229,7 +251,7 @@ $(document).ready(function () {
         detailsBoxEl.addClass("box py-6");
         moreBtn.attr("id", "moreBtn");
         moreBtn.attr("rest-id", response.restaurants[randomIndex].restaurant.id);
-        faveBtn.attr("id","faveBtn");
+        faveBtn.attr("id","faveBtnF");
          restId = response.restaurants[randomIndex].restaurant.id;
          
          restLat = response.restaurants[randomIndex].restaurant.location.latitude;
@@ -252,7 +274,7 @@ $(document).ready(function () {
         detailsBoxEl.append(detailsBox1);
       }
 
-      
+      $('#faveBtnF').on("click", storeFavorites())
     });
   }
 
@@ -282,7 +304,7 @@ $(document).ready(function () {
   
   $("#detailsBoxes").on("click",$("#moreBtn"), function (event) {
     event.preventDefault();
-    console.log("clicked");
+    // console.log("clicked");
     
     event.stopPropagation();
     // console.log($(this).children);
@@ -294,12 +316,5 @@ $(document).ready(function () {
     localStorage.setItem("lon",JSON.stringify(lon));
     window.open("details.html");
   });
-
-  // $("#detailsBoxes").on("click", "#favBtn", function (event) {
-  //   event.preventDefault();
-  //   event.stopPropagation();
-  //   console.log("clicked");
-
-  // })
 
 });
