@@ -69,13 +69,16 @@ $(document).ready(function () {
   // Search the resturant results based on location
 
   function restaurantSearch() {
-    if (clicked === 1){
+    if (clicked === 1) {
       detailsBoxEl.empty();
-      var headerEl = $("<h1>").text("Here's what we found for you!").addClass("is-size-3");
+      var headerEl = $("<h1>")
+        .text("Here's what we found for you!")
+        .addClass("is-size-3");
       detailsBoxEl.append(headerEl);
       previewBoxEl = $("<div>");
       detailsBoxEl.append(previewBoxEl);
-    } else {};
+    } else {
+    }
     latitude = localStorage.getItem("latitude");
     longitude = localStorage.getItem("longitude");
     var radius = 1000;
@@ -113,7 +116,9 @@ $(document).ready(function () {
       var faveBtn = $("<button>").text("Add to Favorites");
       var imgURL = "";
 
-      if (response.restaurants[randomNum].restaurant.featured_img != undefined) {
+      if (
+        response.restaurants[randomNum].restaurant.featured_img != undefined
+      ) {
         imgURL = response.restaurants[randomNum].restaurant.featured_img;
       } else {
         imgURL = "https://static.thenounproject.com/png/978640-200.png";
@@ -123,25 +128,11 @@ $(document).ready(function () {
       moreBtn.addClass(
         "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
       );
-
       faveBtn.addClass(
         "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
       );
-
-      // webURL.attr("href", response.restaurants[randomNum].restaurant.url);
-      // //attributes
-      // moreBtn.addClass('button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6');
-
-      // webURL.attr("href", response.restaurants[randomNum].restaurant.url);
-      //text
-
       h3Name.text(response.restaurants[randomNum].restaurant.name);
       h3Name.addClass("is-size-2 is-family-code");
-      // pAdress.text(response.restaurants[randomNum].restaurant.location.address);
-      // pNum.text(
-      //   "Phone Number: " +
-      //     response.restaurants[randomNum].restaurant.phone_numbers
-      // );
       pHours.text(
         "Hours: " + response.restaurants[randomNum].restaurant.timings
       );
@@ -149,7 +140,6 @@ $(document).ready(function () {
         "Type of Cuisine: " +
           response.restaurants[randomNum].restaurant.cuisines
       );
-      // webURL.text("Visit Site");
 
       moreBtn.text("More info");
       moreBtn.attr("id", "moreBtn");
@@ -158,7 +148,7 @@ $(document).ready(function () {
       //append
       boxEl.addClass("box py-6 is-centered");
       imgSrc.attr("src", imgURL);
-      imgSrc.attr("id", "preview-image")
+      imgSrc.attr("id", "preview-image");
       imageFig.append(imgSrc);
       imageEl.append(imageFig, h3Name);
       contentDiv.append(pCuisineType, pHours, moreBtn, faveBtn);
@@ -166,7 +156,6 @@ $(document).ready(function () {
       detailsBox1.append(imageEl, contentEl);
       boxEl.append(detailsBox1);
       previewBoxEl.prepend(boxEl);
-      
     });
   }
 
@@ -192,8 +181,6 @@ $(document).ready(function () {
         "content-type": "application/json",
       },
     }).then(function (response) {
-      // if both = null, modal - you must select one option
-      // if both = same id - you must be hungry, you're delirious! Error: Positive and negative filters cannot be the same cuisine.
       // if just positive - do the below
       // if just negative, do search with no cuisine filter and filter through results so the negative does not display
       // if both, search with positive cuisine and filter through results so the negative does not display
@@ -217,7 +204,9 @@ $(document).ready(function () {
         var faveBtn = $("<button>").text("Add to Favorites");
         var imgURL = "";
 
-        if (response.restaurants[randomIndex].restaurant.featured_img != undefined) {
+        if (
+          response.restaurants[randomIndex].restaurant.featured_img != undefined
+        ) {
           imgURL = response.restaurants[randomIndex].restaurant.featured_img;
         } else {
           imgURL = "https://static.thenounproject.com/png/978640-200.png";
@@ -227,10 +216,15 @@ $(document).ready(function () {
         detailsBoxEl.addClass("box py-6 media");
         imageEl.addClass("media-left");
         moreBtn.attr("id", "moreBtn");
-        moreBtn.attr("rest-id", response.restaurants[randomIndex].restaurant.id);
+        moreBtn.attr(
+          "rest-id",
+          response.restaurants[randomIndex].restaurant.id
+        );
         h3Name.text(response.restaurants[randomIndex].restaurant.name);
         h3Name.addClass("is-size-2 is-family-code");
-        pHours.text("Hours: " + response.restaurants[randomIndex].restaurant.timings);
+        pHours.text(
+          "Hours: " + response.restaurants[randomIndex].restaurant.timings
+        );
         pCuisineType.text(
           "Type of Cuisine: " +
             response.restaurants[randomIndex].restaurant.cuisines
@@ -245,7 +239,7 @@ $(document).ready(function () {
 
         boxEl.addClass("box py-6 is-centered");
         imgSrc.attr("src", imgURL);
-        imgSrc.attr("id", "preview-image")
+        imgSrc.attr("id", "preview-image");
         imageFig.append(imgSrc);
         imageEl.append(imageFig, h3Name);
         contentDiv.append(pCuisineType, pHours, moreBtn, faveBtn);
@@ -253,10 +247,10 @@ $(document).ready(function () {
         detailsBox1.append(imageEl, contentEl);
         boxEl.append(detailsBox1);
         detailsBoxEl.prepend(boxEl);
-
       }
-      detailsBoxEl.prepend($("<h1>").text("Here are your top 3 results!").addClass("is-size-3"));
-      
+      detailsBoxEl.prepend(
+        $("<h1>").text("Here are your top 3 results!").addClass("is-size-3")
+      );
     });
   }
 
@@ -281,11 +275,28 @@ $(document).ready(function () {
   filterBtnEL.on("click", function (event) {
     event.preventDefault();
     selectedCuisine = $("#selected-cuisine > option:selected").attr("id");
+    deselectedCuisine = $("#unselected-cuisine > option:selected").attr("id");
     clicked = 0;
-    filteredSearch();
+    var errorMessage = $("#error-message");
+    if (selectedCuisine === "null" && deselectedCuisine === "null") {
+      errorMessage.empty();
+      errorMessage
+        .text("You must select one option!")
+        .addClass("is-size-3 has-text-danger-dark");
+    } else if (selectedCuisine === deselectedCuisine) {
+      errorMessage.empty();
+      errorMessage
+        .text(
+          "You must be hangry, you're delirious! Positive and negative selections cannot be the same thing."
+        )
+        .addClass("is-size-3 has-text-danger-dark");
+    } else {
+      errorMessage.empty();
+      filteredSearch();
+    }
   });
-  
-  $("#detailsBoxes").on("click","#moreBtn", function (event) {
+
+  $("#detailsBoxes").on("click", "#moreBtn", function (event) {
     event.preventDefault();
     console.log("clicked");
     // event.stopPropagation();
