@@ -5,7 +5,6 @@ $(document).ready(function () {
     // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
     $(".navbar-burger").toggleClass("is-active");
     $(".navbar-menu").toggleClass("is-active");
-
   });
 
   //Variables
@@ -35,33 +34,40 @@ $(document).ready(function () {
     localStorage.setItem("longitude", longitude);
     getCuisines();
   }
-  //store the favorite resturants 
+  //store the favorite resturants
   // function storeFavorites(){
   //   console.log("clicked")
   //   // fav = response.restaurants[randomIndex].restaurant.name;
   //   // favoritesName.push(fav);
   //   // localStorage.setItem("FavName", JSON.stringify(favoritesName));
-  //   // favId = response.restaurants[randomIndex].restaurant.id; 
+  //   // favId = response.restaurants[randomIndex].restaurant.id;
   //   // favoritesId.push(favId);
   //   // localStorage.setItem("FavID", JSON.stringify(favoritesId));
   //   // console.log(favId);
   //   // console.log(fav);
-    
+
   // }
 
-  //get the favorite resturants list on page load 
-  function getFavorites (){
-    if(localStorage.getItem("FavName") != null && localStorage.getItem("FavID") !=null ){
-      var localStorageArrName = JSON.parse(localStorage.getItem("FavName").split(","));
+  //get the favorite resturants list on page load
+  function getfavorites() {
+    if (
+      localStorage.getItem("FavName") != null &&
+      localStorage.getItem("FavID") != null
+    ) {
+      var localStorageArrName = JSON.parse(
+        localStorage.getItem("FavName").split(",")
+      );
       favoritesName = localStorageArrName;
-      var localStorageArrId = JSON.parse(localStorage.getItem("FavID").split(","));
+      var localStorageArrId = JSON.parse(
+        localStorage.getItem("FavID").split(",")
+      );
       favoritesId = localStorageArrId;
-      //render favorites list 
+      //render favorites list
     }
-  };
-  getFavorites();
+  }
+  getfavorites();
   //Functions
-  //get resturant ID 
+  //get resturant ID
   // function getRestId (){
   //   console.log("clicked")
   //   // moreRestID = restId;
@@ -369,6 +375,7 @@ $(document).ready(function () {
 
 
 $("#detailsBoxes").on("click", "#faveBtnF", function(event){
+  event.preventDefault();
   console.log("clicked fave");
   var fav = $(this).attr("rest-name");
   favoritesName.push(fav);
