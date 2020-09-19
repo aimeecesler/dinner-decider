@@ -5,6 +5,7 @@ $(document).ready(function () {
     // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
     $(".navbar-burger").toggleClass("is-active");
     $(".navbar-menu").toggleClass("is-active");
+
   });
 
   //Variables
@@ -21,11 +22,8 @@ $(document).ready(function () {
   var restLon; 
   var lat;
   var lon;
-  var favorites =  { 
-    name: [],
-    id: []
-    
-  };
+  var favoritesName =  [];
+  var favoritesId = [];
   var fav;
   var favId;
   //Functions
@@ -40,16 +38,20 @@ $(document).ready(function () {
     localStorage.setItem("longitude", longitude);
     getCuisines();
   }
+  // function storeFavorites(){
+    
+  // }
 
   function getfavorites (){
-    if(localStorage.getItem("FavName") === null && localStorage.getItem("FavID") === null ){
-      favorites.name = "";
-      favorites.id = "";
-    }else {
-      favorites.name.push(JSON.parse(localStorage.getItem("FavName")));
-      favorites.id.push(JSON.parse(localStorage.getItem("FavID")));
-    };
+    if(localStorage.getItem("FavName") != null && localStorage.getItem("FavID") !=null ){
+      var localStorageArrName = JSON.parse(localStorage.getItem("FavName").split(","));
+      favoritesName = localStorageArrName;
+      var localStorageArrId = JSON.parse(localStorage.getItem("FavID").split(","));
+      favoritesId = localStorageArrId;
+      //render favorites list 
+    }
   };
+  getfavorites();
   //Functions
 
   //function to create Cusines filter dropdown
@@ -172,14 +174,13 @@ $(document).ready(function () {
         event.stopPropagation();
         // console.log("clicked");
         fav = response.restaurants[randomNum].restaurant.name;
-        favorites.name.push(fav);
-        favId = response.restaurants[randomNum].restaurant.id;
-        favorites.id.push(favId);
-        localStorage.setItem("FavName", JSON.stringify(favorites.name));
-        localStorage.setItem("FavID", JSON.stringify(favorites.id));
-        console.log(fav);
+        favoritesName.push(fav);
+        localStorage.setItem("FavName", JSON.stringify(favoritesName));
+        favId = response.restaurants[randomNum].restaurant.id; 
+        favoritesId.push(favId);
+        localStorage.setItem("FavID", JSON.stringify(favoritesId));
         console.log(favId);
-        console.log(favorites);
+        console.log(fav);
 
         //have an favs array that contains the name and ID of the restaurant 
         //set the array to the storage as an array not one that changes every click 
