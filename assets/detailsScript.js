@@ -6,6 +6,8 @@ $(document).ready(function () {
   var h2El = $("#rTimings");
   var h3El = $("#rAvgCost");
   var h4El = $("#rHighlights");
+  var h5El = $("#rRating");
+  var h6El = $("#rWebsite");
 
   function getRestaurantInfo() {
     var queryURL =
@@ -39,11 +41,19 @@ $(document).ready(function () {
       h2Timings = "Timings: " + response.timings;
       h3AvgCost = "Average Cost for Two: $ " + response.average_cost_for_two;
       h4Highlights = "Highlights: " + response.highlights;
+      h5Rating = "Rating: " + response.user_rating.aggregate_rating;
+      h5Rating2 = " - " + response.user_rating.rating_text;
+      // h6Website = document.createElement("<h6>");
+      // h6Website.title = name + " Website";
+      // h6Website.href = response.url;
+
       // console.log(h1Name);
       h1El.append(h1Name);
       h2El.append(h2Timings);
       h3El.append(h3AvgCost);
       h4El.append(h4Highlights);
+      h5El.append(h5Rating, h5Rating2);
+      h6El.append(h6Website);
       // var appendedName = rName;
       // appendedName.append$("rName");
     });
