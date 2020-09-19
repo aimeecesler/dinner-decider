@@ -17,6 +17,14 @@ $(document).ready(function () {
   var selectedCuisine = "";
   var moreRestID;
   var restId;
+  var restLat;
+  var restLon;
+  var lat;
+  var lon;
+  var favoritesName = [];
+  var favoritesId = [];
+  var fav;
+  var favId;
   var previewBoxEl;
 
   //Functions
@@ -31,8 +39,51 @@ $(document).ready(function () {
     localStorage.setItem("longitude", longitude);
     getCuisines();
   }
+  //store the favorite resturants
+  // function storeFavorites(){
+  //   console.log("clicked")
+  //   // fav = response.restaurants[randomIndex].restaurant.name;
+  //   // favoritesName.push(fav);
+  //   // localStorage.setItem("FavName", JSON.stringify(favoritesName));
+  //   // favId = response.restaurants[randomIndex].restaurant.id;
+  //   // favoritesId.push(favId);
+  //   // localStorage.setItem("FavID", JSON.stringify(favoritesId));
+  //   // console.log(favId);
+  //   // console.log(fav);
 
+  // }
+
+  //get the favorite resturants list on page load
+  function getfavorites() {
+    if (
+      localStorage.getItem("FavName") != null &&
+      localStorage.getItem("FavID") != null
+    ) {
+      var localStorageArrName = JSON.parse(
+        localStorage.getItem("FavName").split(",")
+      );
+      favoritesName = localStorageArrName;
+      var localStorageArrId = JSON.parse(
+        localStorage.getItem("FavID").split(",")
+      );
+      favoritesId = localStorageArrId;
+      //render favorites list
+    }
+  }
+  getfavorites();
   //Functions
+  //get resturant ID
+  // function getRestId (){
+  //   console.log("clicked")
+  //   // moreRestID = restId;
+  //   // lat = restLat;
+  //   // lon = restLon;
+  //   // localStorage.setItem("fMoreRestId",JSON.stringify(moreRestID));
+  //   // localStorage.setItem('lat',JSON.stringify(lat));
+  //   // localStorage.setItem("lon",JSON.stringify(lon));
+  //   // window.open("details.html");
+
+  // };
 
   //function to create Cusines filter dropdown
   function getCuisines() {
@@ -99,7 +150,7 @@ $(document).ready(function () {
       },
     }).then(function (response) {
       // console.log(response);
-
+      // detailsBoxEl.empty();
       var randomNum = Math.floor(Math.random() * 19) + 1;
       //create elements
       var boxEl = $("<div>");
@@ -171,6 +222,40 @@ $(document).ready(function () {
       detailsBox1.append(imageEl, contentEl);
       boxEl.append(detailsBox1);
       previewBoxEl.prepend(boxEl);
+
+      //onclicks
+      moreBtn.on("click", function (event) {
+        event.preventDefault();
+        moreRestID = response.restaurants[randomNum].restaurant.id;
+        // console.log("clicked")
+        // console.log(response.restaurants[randomNum].restaurant.id);
+
+        lat = response.restaurants[randomNum].restaurant.location.latitude;
+        lon = response.restaurants[randomNum].restaurant.location.longitude;
+        localStorage.setItem("lat", JSON.stringify(lat));
+        localStorage.setItem("lon", JSON.stringify(lon));
+        localStorage.setItem("dMoreRestId", JSON.stringify(moreRestID));
+        window.open("details.html");
+      });
+
+      faveBtn.on("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        // console.log("clicked");
+        fav = response.restaurants[randomNum].restaurant.name;
+        favoritesName.push(fav);
+        localStorage.setItem("FavName", JSON.stringify(favoritesName));
+        favId = response.restaurants[randomNum].restaurant.id;
+        favoritesId.push(favId);
+        localStorage.setItem("FavID", JSON.stringify(favoritesId));
+        console.log(favId);
+        console.log(fav);
+
+        //have an favs array that contains the name and ID of the restaurant
+        //set the array to the storage as an array not one that changes every click
+        // empty the set items and push the array
+        //when favorites button is clicked in the corner a modal or sidebar of favs appear
+      });
     });
   }
 
@@ -217,6 +302,7 @@ $(document).ready(function () {
         var h3Name = $("<h1>");
         var pCuisineType = $("<p>");
         var moreBtn = $("<button>");
+        var faveBtn = $("<button>").text("Add to Favorites");
         var pHours = $("<p>");
         var faveBtn = $("<button>").text("Add to Favorites");
         var imgURL = "";
@@ -237,6 +323,12 @@ $(document).ready(function () {
           "rest-id",
           response.restaurants[randomIndex].restaurant.id
         );
+        moreBtn.attr(
+          "rest-id",
+          response.restaurants[randomIndex].restaurant.id
+        );
+        faveBtn.attr("id", "faveBtnF");
+
         h3Name.text(response.restaurants[randomIndex].restaurant.name);
         h3Name.addClass("is-size-2 is-family-code");
         pHours.text(
@@ -268,6 +360,29 @@ $(document).ready(function () {
       detailsBoxEl.prepend(
         $("<h1>").text("Here are your top 3 results!").addClass("is-size-3")
       );
+      detailsBoxEl.prepend(
+        $("<h1>").text("Here are your top 3 results!").addClass("is-size-3")
+      );
+
+      $("#faveBtnF").on("click", function (event) {
+        event.preventDefault();
+        console.log("clicked");
+        fav = response.restaurants[randomIndex].restaurant.name;
+        favoritesName.push(fav);
+        localStorage.setItem("FavName", JSON.stringify(favoritesName));
+        favId = response.restaurants[randomIndex].restaurant.id;
+        favoritesId.push(favId);
+        localStorage.setItem("FavID", JSON.stringify(favoritesId));
+        // console.log(favId);
+        // console.log(fav);
+      });
+      $("#moreBtn").on("click", function (event) {
+        event.preventDefault();
+        console.log("clicked");
+        moreRestID = $(this).attr("rest-id");
+        localStorage.setItem("moreRestId", moreRestID);
+        window.open("details.html");
+      });
     });
   }
 
@@ -305,4 +420,24 @@ $(document).ready(function () {
     localStorage.setItem("moreRestId", moreRestID);
     window.open("details.html");
   });
+
+  // $("#detailsBoxes").on("click",$("#moreBtn"), function (event) {
+  //       event.preventDefault();
+  //       console.log("clicked")
+  //       moreRestID = $(this).attr("rest-id");
+  //       localStorage.setItem("moreRestId", moreRestID);
+  //       window.open("details.html");
+  //   event.preventDefault();
+  //   // console.log("clicked");
+
+  //   event.stopPropagation();
+  //   // console.log($(this).children);
+  //   moreRestID = restId;
+  //   lat = restLat;
+  //   lon = restLon;
+  //   localStorage.setItem("fMoreRestId",JSON.stringify(moreRestID));
+  //   localStorage.setItem('lat',JSON.stringify(lat));
+  //   localStorage.setItem("lon",JSON.stringify(lon));
+  //   window.open("details.html");
+  // });
 });
