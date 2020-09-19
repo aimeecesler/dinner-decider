@@ -19,9 +19,15 @@ $(document).ready(function () {
   var restId;
   var restLat;
   var restLon; 
-  var favorites = [];
+  var lat;
+  var lon;
+  var favorites =  { 
+    name: [],
+    id: []
+    
+  };
   var fav;
-
+  var favId;
   //Functions
   window.navigator.geolocation.getCurrentPosition(getCoordinates);
 
@@ -35,6 +41,14 @@ $(document).ready(function () {
     getCuisines();
   }
 
+  function getfavorites (){
+    if(localStorage.getItem("FavName") === null){
+
+    }
+    localStorage.setItem("FavName", JSON.stringify(favorites.name));
+    localStorage.setItem("FavID", JSON.stringify(favorites.id));
+
+  }
   //Functions
 
   //function to create Cusines filter dropdown
@@ -156,10 +170,20 @@ $(document).ready(function () {
         event.preventDefault();
         event.stopPropagation();
         // console.log("clicked");
-        favorites.push(response.restaurants[randomNum].restaurant.name);
         fav = response.restaurants[randomNum].restaurant.name;
-        localStorage.setItem("favorites", fav);
-        
+        favorites.name.push(fav);
+        favId = response.restaurants[randomNum].restaurant.id;
+        favorites.id.push(favId);
+        localStorage.setItem("FavName", JSON.stringify(favorites.name));
+        localStorage.setItem("FavID", JSON.stringify(favorites.id));
+        console.log(fav);
+        console.log(favId);
+        console.log(favorites);
+
+        //have an favs array that contains the name and ID of the restaurant 
+        //set the array to the storage as an array not one that changes every click 
+        // empty the set items and push the array 
+        //when favorites button is clicked in the corner a modal or sidebar of favs appear
 
       })
 
@@ -196,13 +220,14 @@ $(document).ready(function () {
         var detailsBox1 = $("<article>");
         var h3Name = $("<h3>");
         var moreBtn = $("<button>");
+        var faveBtn = $("<button>").text("Add to Favorites");
         var pHours = $("<p>");
         var pCuisineType = $("<p>");
         // console.log(response);
         detailsBoxEl.addClass("box py-6");
         moreBtn.attr("id", "moreBtn");
         moreBtn.attr("rest-id", response.restaurants[randomIndex].restaurant.id);
-        faveBtn.attr("id","faveBtn")
+        faveBtn.attr("id","faveBtn");
          restId = response.restaurants[randomIndex].restaurant.id;
          
          restLat = response.restaurants[randomIndex].restaurant.location.latitude;
@@ -217,8 +242,11 @@ $(document).ready(function () {
         moreBtn.addClass(
           "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
         );
+        faveBtn.addClass(
+          "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
+        );
 
-        detailsBox1.append(h3Name, pHours, pCuisineType, moreBtn);
+        detailsBox1.append(h3Name, pHours, pCuisineType, moreBtn,faveBtn);
         detailsBoxEl.append(detailsBox1);
       }
 
@@ -265,7 +293,10 @@ $(document).ready(function () {
     window.open("details.html");
   });
 
-  // $("#detailsBoxes").ong("click", $("#favBtn"), function () {
+  // $("#detailsBoxes").on("click", "#favBtn", function (event) {
+  //   event.preventDefault();
+  //   event.stopPropagation();
+  //   console.log("clicked");
 
   // })
 
