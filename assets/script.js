@@ -69,13 +69,16 @@ $(document).ready(function () {
   // Search the resturant results based on location
 
   function restaurantSearch() {
-    if (clicked === 1){
+    if (clicked === 1) {
       detailsBoxEl.empty();
-      var headerEl = $("<h1>").text("Here's what we found for you!").addClass("is-size-3");
+      var headerEl = $("<h1>")
+        .text("Here's what we found for you!")
+        .addClass("is-size-3");
       detailsBoxEl.append(headerEl);
       previewBoxEl = $("<div>");
       detailsBoxEl.append(previewBoxEl);
-    } else {};
+    } else {
+    }
     latitude = localStorage.getItem("latitude");
     longitude = localStorage.getItem("longitude");
     var radius = 1000;
@@ -113,7 +116,9 @@ $(document).ready(function () {
       var faveBtn = $("<button>").text("Add to Favorites");
       var imgURL = "";
 
-      if (response.restaurants[randomNum].restaurant.featured_img != undefined) {
+      if (
+        response.restaurants[randomNum].restaurant.featured_img != undefined
+      ) {
         imgURL = response.restaurants[randomNum].restaurant.featured_img;
       } else {
         imgURL = "https://static.thenounproject.com/png/978640-200.png";
@@ -158,7 +163,7 @@ $(document).ready(function () {
       //append
       boxEl.addClass("box py-6 is-centered");
       imgSrc.attr("src", imgURL);
-      imgSrc.attr("id", "preview-image")
+      imgSrc.attr("id", "preview-image");
       imageFig.append(imgSrc);
       imageEl.append(imageFig, h3Name);
       contentDiv.append(pCuisineType, pHours, moreBtn, faveBtn);
@@ -166,7 +171,6 @@ $(document).ready(function () {
       detailsBox1.append(imageEl, contentEl);
       boxEl.append(detailsBox1);
       previewBoxEl.prepend(boxEl);
-      
     });
   }
 
@@ -217,7 +221,9 @@ $(document).ready(function () {
         var faveBtn = $("<button>").text("Add to Favorites");
         var imgURL = "";
 
-        if (response.restaurants[randomIndex].restaurant.featured_img != undefined) {
+        if (
+          response.restaurants[randomIndex].restaurant.featured_img != undefined
+        ) {
           imgURL = response.restaurants[randomIndex].restaurant.featured_img;
         } else {
           imgURL = "https://static.thenounproject.com/png/978640-200.png";
@@ -227,10 +233,15 @@ $(document).ready(function () {
         detailsBoxEl.addClass("box py-6 media");
         imageEl.addClass("media-left");
         moreBtn.attr("id", "moreBtn");
-        moreBtn.attr("rest-id", response.restaurants[randomIndex].restaurant.id);
+        moreBtn.attr(
+          "rest-id",
+          response.restaurants[randomIndex].restaurant.id
+        );
         h3Name.text(response.restaurants[randomIndex].restaurant.name);
         h3Name.addClass("is-size-2 is-family-code");
-        pHours.text("Hours: " + response.restaurants[randomIndex].restaurant.timings);
+        pHours.text(
+          "Hours: " + response.restaurants[randomIndex].restaurant.timings
+        );
         pCuisineType.text(
           "Type of Cuisine: " +
             response.restaurants[randomIndex].restaurant.cuisines
@@ -245,7 +256,7 @@ $(document).ready(function () {
 
         boxEl.addClass("box py-6 is-centered");
         imgSrc.attr("src", imgURL);
-        imgSrc.attr("id", "preview-image")
+        imgSrc.attr("id", "preview-image");
         imageFig.append(imgSrc);
         imageEl.append(imageFig, h3Name);
         contentDiv.append(pCuisineType, pHours, moreBtn, faveBtn);
@@ -253,10 +264,10 @@ $(document).ready(function () {
         detailsBox1.append(imageEl, contentEl);
         boxEl.append(detailsBox1);
         detailsBoxEl.prepend(boxEl);
-
       }
-      detailsBoxEl.prepend($("<h1>").text("Here are your top 3 results!").addClass("is-size-3"));
-      
+      detailsBoxEl.prepend(
+        $("<h1>").text("Here are your top 3 results!").addClass("is-size-3")
+      );
     });
   }
 
@@ -284,8 +295,8 @@ $(document).ready(function () {
     clicked = 0;
     filteredSearch();
   });
-  
-  $("#detailsBoxes").on("click","#moreBtn", function (event) {
+
+  $("#detailsBoxes").on("click", "#moreBtn", function (event) {
     event.preventDefault();
     console.log("clicked");
     // event.stopPropagation();
