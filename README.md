@@ -19,10 +19,10 @@ When the user clicks the "what's for dinner?" button, a local restaurant will be
 
 #### Credits
 
-Dinner Decider utilizes the following APIs, as well as the [jQuery] (https://jquery.com) library:
+Dinner Decider utilizes the following APIs, as well as the [jQuery](https://jquery.com) library:
 
-- [Zomato] (https://developers.zomato.com/api)
-- [Mapbox] (https://docs.mapbox.com/api/)
+- [Zomato](https://developers.zomato.com/api)
+- [Mapbox](https://docs.mapbox.com/api/)
 
 ##### License
 
