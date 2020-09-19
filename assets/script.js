@@ -39,18 +39,18 @@ $(document).ready(function () {
     getCuisines();
   }
   //store the favorite resturants 
-  function storeFavorites(){
-    console.log("clicked")
-    // fav = response.restaurants[randomIndex].restaurant.name;
-    // favoritesName.push(fav);
-    // localStorage.setItem("FavName", JSON.stringify(favoritesName));
-    // favId = response.restaurants[randomIndex].restaurant.id; 
-    // favoritesId.push(favId);
-    // localStorage.setItem("FavID", JSON.stringify(favoritesId));
-    // console.log(favId);
-    // console.log(fav);
+  // function storeFavorites(){
+  //   console.log("clicked")
+  //   // fav = response.restaurants[randomIndex].restaurant.name;
+  //   // favoritesName.push(fav);
+  //   // localStorage.setItem("FavName", JSON.stringify(favoritesName));
+  //   // favId = response.restaurants[randomIndex].restaurant.id; 
+  //   // favoritesId.push(favId);
+  //   // localStorage.setItem("FavID", JSON.stringify(favoritesId));
+  //   // console.log(favId);
+  //   // console.log(fav);
     
-  }
+  // }
 
   //get the favorite resturants list on page load 
   function getfavorites (){
@@ -65,16 +65,17 @@ $(document).ready(function () {
   getfavorites();
   //Functions
   //get resturant ID 
-  function gitRestId (){
-    moreRestID = restId;
-    lat = restLat;
-    lon = restLon;
-    localStorage.setItem("fMoreRestId",JSON.stringify(moreRestID));
-    localStorage.setItem('lat',JSON.stringify(lat));
-    localStorage.setItem("lon",JSON.stringify(lon));
-    window.open("details.html");
+  // function getRestId (){
+  //   console.log("clicked")
+  //   // moreRestID = restId;
+  //   // lat = restLat;
+  //   // lon = restLon;
+  //   // localStorage.setItem("fMoreRestId",JSON.stringify(moreRestID));
+  //   // localStorage.setItem('lat',JSON.stringify(lat));
+  //   // localStorage.setItem("lon",JSON.stringify(lon));
+  //   // window.open("details.html");
 
-  };
+  // };
 
   //function to create Cusines filter dropdown
   function getCuisines() {
@@ -274,7 +275,29 @@ $(document).ready(function () {
         detailsBoxEl.append(detailsBox1);
       }
 
-      $('#faveBtnF').on("click", storeFavorites())
+      $('#faveBtnF').on("click", function (event){
+        event.preventDefault();
+        console.log("clicked")
+        fav = response.restaurants[randomIndex].restaurant.name;
+          favoritesName.push(fav);
+          localStorage.setItem("FavName", JSON.stringify(favoritesName));
+        favId = response.restaurants[randomIndex].restaurant.id; 
+          favoritesId.push(favId);
+          localStorage.setItem("FavID", JSON.stringify(favoritesId));
+          // console.log(favId);
+          // console.log(fav);
+      });
+      $("#moreBtn").on("click", function(event) {
+        event.preventDefault();
+        console.log("clicked")
+        moreRestID = restId;
+        lat = restLat;
+        lon = restLon;
+          localStorage.setItem("fMoreRestId",JSON.stringify(moreRestID));
+          localStorage.setItem('lat',JSON.stringify(lat));
+          localStorage.setItem("lon",JSON.stringify(lon));
+          window.open("details.html");
+      });
     });
   }
 
@@ -302,19 +325,19 @@ $(document).ready(function () {
     filteredSearch();
   });
   
-  $("#detailsBoxes").on("click",$("#moreBtn"), function (event) {
-    event.preventDefault();
-    // console.log("clicked");
+  // $("#detailsBoxes").on("click",$("#moreBtn"), function (event) {
+  //   event.preventDefault();
+  //   // console.log("clicked");
     
-    event.stopPropagation();
-    // console.log($(this).children);
-    moreRestID = restId;
-    lat = restLat;
-    lon = restLon;
-    localStorage.setItem("fMoreRestId",JSON.stringify(moreRestID));
-    localStorage.setItem('lat',JSON.stringify(lat));
-    localStorage.setItem("lon",JSON.stringify(lon));
-    window.open("details.html");
-  });
+  //   event.stopPropagation();
+  //   // console.log($(this).children);
+  //   moreRestID = restId;
+  //   lat = restLat;
+  //   lon = restLon;
+  //   localStorage.setItem("fMoreRestId",JSON.stringify(moreRestID));
+  //   localStorage.setItem('lat',JSON.stringify(lat));
+  //   localStorage.setItem("lon",JSON.stringify(lon));
+  //   window.open("details.html");
+  // });
 
 });
