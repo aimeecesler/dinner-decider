@@ -1,6 +1,8 @@
-$(document).ready(function () {
+$(document).ready(function (event) {
+  onload;
   var restID = localStorage.getItem("moreRestId");
 
+  // setting variables
   getRestaurantInfo();
   var h1El = $("#rName");
   var h2El = $("#rTimings");
@@ -43,19 +45,28 @@ $(document).ready(function () {
       h4Highlights = "Highlights: " + response.highlights;
       h5Rating = "Rating: " + response.user_rating.aggregate_rating;
       h5Rating2 = " - " + response.user_rating.rating_text;
-      // h6Website = document.createElement("<h6>");
-      // h6Website.title = name + " Website";
-      // h6Website.href = response.url;
+      h6Website = response.name + "'s" + " website";
 
-      // console.log(h1Name);
       h1El.append(h1Name);
       h2El.append(h2Timings);
       h3El.append(h3AvgCost);
       h4El.append(h4Highlights);
       h5El.append(h5Rating, h5Rating2);
       h6El.append(h6Website);
-      // var appendedName = rName;
-      // appendedName.append$("rName");
+
+      // on click functions for buttons
+
+      $("#rWebsite").on("click", function (event) {
+        event.preventDefault();
+        console.log("clicked");
+        // event.stopPropagation();
+        window.open(response.url);
+      });
+    });
+    $("#dTryAgain").on("click", function (event) {
+      event.preventDefault();
+      // event.stopPropagation();
+      window.open("index.html", "_self");
     });
   }
 });
