@@ -1,4 +1,4 @@
-//Bulga nav bar burger click function
+//Bulma nav bar burger click function
 $(document).ready(function () {
   // Check for click events on the navbar burger icon
   $(".navbar-burger").click(function () {
@@ -152,6 +152,8 @@ $(document).ready(function () {
       // webURL.text("Visit Site");
 
       moreBtn.text("More info");
+      moreBtn.attr("id", "moreBtn");
+      moreBtn.attr("rest-id", response.restaurants[randomNum].restaurant.id);
 
       //append
       boxEl.addClass("box py-6 is-centered");
@@ -164,19 +166,7 @@ $(document).ready(function () {
       detailsBox1.append(imageEl, contentEl);
       boxEl.append(detailsBox1);
       previewBoxEl.prepend(boxEl);
-      moreBtn.on("click", function (event) {
-        event.preventDefault();
-        moreRestID = response.restaurants[randomNum].restaurant.id;
-        // console.log("clicked")
-        // console.log(response.restaurants[randomNum].restaurant.id);
-        
-        lat = response.restaurants[randomNum].restaurant.location.latitude;
-        lon = response.restaurants[randomNum].restaurant.location.longitude;
-        localStorage.setItem('lat',JSON.stringify(lat));
-        localStorage.setItem("lon",JSON.stringify(lon));
-        localStorage.setItem("dMoreRestId",JSON.stringify(moreRestID));
-        window.open("details.html");
-      });
+      
     });
   }
 
@@ -202,6 +192,11 @@ $(document).ready(function () {
         "content-type": "application/json",
       },
     }).then(function (response) {
+      // if both = null, modal - you must select one option
+      // if both = same id - you must be hungry, you're delirious! Error: Positive and negative filters cannot be the same cuisine.
+      // if just positive - do the below
+      // if just negative, do search with no cuisine filter and filter through results so the negative does not display
+      // if both, search with positive cuisine and filter through results so the negative does not display
       console.log(queryURL);
       detailsBoxEl.empty();
       for (var i = 0; i < 3; i++) {
@@ -233,9 +228,6 @@ $(document).ready(function () {
         imageEl.addClass("media-left");
         moreBtn.attr("id", "moreBtn");
         moreBtn.attr("rest-id", response.restaurants[randomIndex].restaurant.id);
-         restId = response.restaurants[randomIndex].restaurant.id;
-         restLat = response.restaurants[randomIndex].restaurant.location.latitude;
-         restLon = response.restaurants[randomIndex].restaurant.location.longitude;
         h3Name.text(response.restaurants[randomIndex].restaurant.name);
         h3Name.addClass("is-size-2 is-family-code");
         pHours.text("Hours: " + response.restaurants[randomIndex].restaurant.timings);
@@ -293,18 +285,13 @@ $(document).ready(function () {
     filteredSearch();
   });
   
-  $("#detailsBoxes").on("click",$("#moreBtn"), function (event) {
+  $("#detailsBoxes").on("click","#moreBtn", function (event) {
     event.preventDefault();
     console.log("clicked");
-    
     // event.stopPropagation();
-    console.log($(this).children);
-    moreRestID = restId;
-    lat = restLat;
-    lon = restLon;
-    localStorage.setItem("fMoreRestId",JSON.stringify(moreRestID));
-    localStorage.setItem('lat',JSON.stringify(lat));
-    localStorage.setItem("lon",JSON.stringify(lon));
+    console.log($(this).attr("rest-id"));
+    moreRestID = $(this).attr("rest-id");
+    localStorage.setItem("moreRestId", moreRestID);
     window.open("details.html");
   });
 });
