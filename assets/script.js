@@ -5,7 +5,6 @@ $(document).ready(function () {
     // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
     $(".navbar-burger").toggleClass("is-active");
     $(".navbar-menu").toggleClass("is-active");
-
   });
 
   //Variables
@@ -19,10 +18,10 @@ $(document).ready(function () {
   var moreRestID;
   var restId;
   var restLat;
-  var restLon; 
+  var restLon;
   var lat;
   var lon;
-  var favoritesName =  [];
+  var favoritesName = [];
   var favoritesId = [];
   var fav;
   var favId;
@@ -40,33 +39,40 @@ $(document).ready(function () {
     localStorage.setItem("longitude", longitude);
     getCuisines();
   }
-  //store the favorite resturants 
+  //store the favorite resturants
   // function storeFavorites(){
   //   console.log("clicked")
   //   // fav = response.restaurants[randomIndex].restaurant.name;
   //   // favoritesName.push(fav);
   //   // localStorage.setItem("FavName", JSON.stringify(favoritesName));
-  //   // favId = response.restaurants[randomIndex].restaurant.id; 
+  //   // favId = response.restaurants[randomIndex].restaurant.id;
   //   // favoritesId.push(favId);
   //   // localStorage.setItem("FavID", JSON.stringify(favoritesId));
   //   // console.log(favId);
   //   // console.log(fav);
-    
+
   // }
 
-  //get the favorite resturants list on page load 
-  function getfavorites (){
-    if(localStorage.getItem("FavName") != null && localStorage.getItem("FavID") !=null ){
-      var localStorageArrName = JSON.parse(localStorage.getItem("FavName").split(","));
+  //get the favorite resturants list on page load
+  function getfavorites() {
+    if (
+      localStorage.getItem("FavName") != null &&
+      localStorage.getItem("FavID") != null
+    ) {
+      var localStorageArrName = JSON.parse(
+        localStorage.getItem("FavName").split(",")
+      );
       favoritesName = localStorageArrName;
-      var localStorageArrId = JSON.parse(localStorage.getItem("FavID").split(","));
+      var localStorageArrId = JSON.parse(
+        localStorage.getItem("FavID").split(",")
+      );
       favoritesId = localStorageArrId;
-      //render favorites list 
+      //render favorites list
     }
-  };
+  }
   getfavorites();
   //Functions
-  //get resturant ID 
+  //get resturant ID
   // function getRestId (){
   //   console.log("clicked")
   //   // moreRestID = restId;
@@ -114,13 +120,16 @@ $(document).ready(function () {
   // Search the resturant results based on location
 
   function restaurantSearch() {
-    if (clicked === 1){
+    if (clicked === 1) {
       detailsBoxEl.empty();
-      var headerEl = $("<h1>").text("Here's what we found for you!").addClass("is-size-3");
+      var headerEl = $("<h1>")
+        .text("Here's what we found for you!")
+        .addClass("is-size-3");
       detailsBoxEl.append(headerEl);
       previewBoxEl = $("<div>");
       detailsBoxEl.append(previewBoxEl);
-    } else {};
+    } else {
+    }
     latitude = localStorage.getItem("latitude");
     longitude = localStorage.getItem("longitude");
     var radius = 1000;
@@ -158,7 +167,9 @@ $(document).ready(function () {
       var faveBtn = $("<button>").text("Add to Favorites");
       var imgURL = "";
 
-      if (response.restaurants[randomNum].restaurant.featured_img != undefined) {
+      if (
+        response.restaurants[randomNum].restaurant.featured_img != undefined
+      ) {
         imgURL = response.restaurants[randomNum].restaurant.featured_img;
       } else {
         imgURL = "https://static.thenounproject.com/png/978640-200.png";
@@ -203,7 +214,7 @@ $(document).ready(function () {
       //append
       boxEl.addClass("box py-6 is-centered");
       imgSrc.attr("src", imgURL);
-      imgSrc.attr("id", "preview-image")
+      imgSrc.attr("id", "preview-image");
       imageFig.append(imgSrc);
       imageEl.append(imageFig, h3Name);
       contentDiv.append(pCuisineType, pHours, moreBtn, faveBtn);
@@ -211,44 +222,40 @@ $(document).ready(function () {
       detailsBox1.append(imageEl, contentEl);
       boxEl.append(detailsBox1);
       previewBoxEl.prepend(boxEl);
-      
-      //onclicks 
+
+      //onclicks
       moreBtn.on("click", function (event) {
         event.preventDefault();
         moreRestID = response.restaurants[randomNum].restaurant.id;
         // console.log("clicked")
         // console.log(response.restaurants[randomNum].restaurant.id);
-        
+
         lat = response.restaurants[randomNum].restaurant.location.latitude;
         lon = response.restaurants[randomNum].restaurant.location.longitude;
-        localStorage.setItem('lat',JSON.stringify(lat));
-        localStorage.setItem("lon",JSON.stringify(lon));
-        localStorage.setItem("dMoreRestId",JSON.stringify(moreRestID));
+        localStorage.setItem("lat", JSON.stringify(lat));
+        localStorage.setItem("lon", JSON.stringify(lon));
+        localStorage.setItem("dMoreRestId", JSON.stringify(moreRestID));
         window.open("details.html");
       });
 
-      faveBtn.on("click", function (event){
+      faveBtn.on("click", function (event) {
         event.preventDefault();
         event.stopPropagation();
         // console.log("clicked");
         fav = response.restaurants[randomNum].restaurant.name;
         favoritesName.push(fav);
         localStorage.setItem("FavName", JSON.stringify(favoritesName));
-        favId = response.restaurants[randomNum].restaurant.id; 
+        favId = response.restaurants[randomNum].restaurant.id;
         favoritesId.push(favId);
         localStorage.setItem("FavID", JSON.stringify(favoritesId));
         console.log(favId);
         console.log(fav);
 
-        //have an favs array that contains the name and ID of the restaurant 
-        //set the array to the storage as an array not one that changes every click 
-        // empty the set items and push the array 
+        //have an favs array that contains the name and ID of the restaurant
+        //set the array to the storage as an array not one that changes every click
+        // empty the set items and push the array
         //when favorites button is clicked in the corner a modal or sidebar of favs appear
-
       });
-
-    
-      
     });
   }
 
@@ -300,7 +307,9 @@ $(document).ready(function () {
         var faveBtn = $("<button>").text("Add to Favorites");
         var imgURL = "";
 
-        if (response.restaurants[randomIndex].restaurant.featured_img != undefined) {
+        if (
+          response.restaurants[randomIndex].restaurant.featured_img != undefined
+        ) {
           imgURL = response.restaurants[randomIndex].restaurant.featured_img;
         } else {
           imgURL = "https://static.thenounproject.com/png/978640-200.png";
@@ -310,12 +319,21 @@ $(document).ready(function () {
         detailsBoxEl.addClass("box py-6 media");
         imageEl.addClass("media-left");
         moreBtn.attr("id", "moreBtn");
-        moreBtn.attr("rest-id", response.restaurants[randomIndex].restaurant.id);
-        faveBtn.attr("id","faveBtnF");
-        
+        moreBtn.attr(
+          "rest-id",
+          response.restaurants[randomIndex].restaurant.id
+        );
+        moreBtn.attr(
+          "rest-id",
+          response.restaurants[randomIndex].restaurant.id
+        );
+        faveBtn.attr("id", "faveBtnF");
+
         h3Name.text(response.restaurants[randomIndex].restaurant.name);
         h3Name.addClass("is-size-2 is-family-code");
-        pHours.text("Hours: " + response.restaurants[randomIndex].restaurant.timings);
+        pHours.text(
+          "Hours: " + response.restaurants[randomIndex].restaurant.timings
+        );
         pCuisineType.text(
           "Type of Cuisine: " +
             response.restaurants[randomIndex].restaurant.cuisines
@@ -330,7 +348,7 @@ $(document).ready(function () {
 
         boxEl.addClass("box py-6 is-centered");
         imgSrc.attr("src", imgURL);
-        imgSrc.attr("id", "preview-image")
+        imgSrc.attr("id", "preview-image");
         imageFig.append(imgSrc);
         imageEl.append(imageFig, h3Name);
         contentDiv.append(pCuisineType, pHours, moreBtn, faveBtn);
@@ -338,32 +356,33 @@ $(document).ready(function () {
         detailsBox1.append(imageEl, contentEl);
         boxEl.append(detailsBox1);
         detailsBoxEl.prepend(boxEl);
-
       }
-      detailsBoxEl.prepend($("<h1>").text("Here are your top 3 results!").addClass("is-size-3"));
-      
+      detailsBoxEl.prepend(
+        $("<h1>").text("Here are your top 3 results!").addClass("is-size-3")
+      );
+      detailsBoxEl.prepend(
+        $("<h1>").text("Here are your top 3 results!").addClass("is-size-3")
+      );
 
-      $('#faveBtnF').on("click", function (event){
+      $("#faveBtnF").on("click", function (event) {
         event.preventDefault();
-        console.log("clicked")
+        console.log("clicked");
         fav = response.restaurants[randomIndex].restaurant.name;
-          favoritesName.push(fav);
-          localStorage.setItem("FavName", JSON.stringify(favoritesName));
-        favId = response.restaurants[randomIndex].restaurant.id; 
-          favoritesId.push(favId);
-          localStorage.setItem("FavID", JSON.stringify(favoritesId));
-          // console.log(favId);
-          // console.log(fav);
+        favoritesName.push(fav);
+        localStorage.setItem("FavName", JSON.stringify(favoritesName));
+        favId = response.restaurants[randomIndex].restaurant.id;
+        favoritesId.push(favId);
+        localStorage.setItem("FavID", JSON.stringify(favoritesId));
+        // console.log(favId);
+        // console.log(fav);
       });
-      $("#moreBtn").on("click", function(event) {
+      $("#moreBtn").on("click", function (event) {
         event.preventDefault();
-        console.log("clicked")
+        console.log("clicked");
         moreRestID = $(this).attr("rest-id");
         localStorage.setItem("moreRestId", moreRestID);
         window.open("details.html");
       });
- 
-      
     });
   }
 
@@ -392,8 +411,16 @@ $(document).ready(function () {
     filteredSearch();
   });
 
+  $("#detailsBoxes").on("click", "#moreBtn", function (event) {
+    event.preventDefault();
+    console.log("clicked");
+    // event.stopPropagation();
+    console.log($(this).attr("rest-id"));
+    moreRestID = $(this).attr("rest-id");
+    localStorage.setItem("moreRestId", moreRestID);
+    window.open("details.html");
+  });
 
-  
   // $("#detailsBoxes").on("click",$("#moreBtn"), function (event) {
   //       event.preventDefault();
   //       console.log("clicked")
@@ -402,7 +429,7 @@ $(document).ready(function () {
   //       window.open("details.html");
   //   event.preventDefault();
   //   // console.log("clicked");
-    
+
   //   event.stopPropagation();
   //   // console.log($(this).children);
   //   moreRestID = restId;
@@ -413,5 +440,4 @@ $(document).ready(function () {
   //   localStorage.setItem("lon",JSON.stringify(lon));
   //   window.open("details.html");
   // });
-
 });
