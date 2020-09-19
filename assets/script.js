@@ -141,7 +141,7 @@ $(document).ready(function () {
       },
     }).then(function (response) {
       // console.log(response);
-      detailsBoxEl.empty();
+      // detailsBoxEl.empty();
       var randomNum = Math.floor(Math.random() * 19) + 1;
       //create elements
       var boxEl = $("<div>");
@@ -245,7 +245,7 @@ $(document).ready(function () {
         // empty the set items and push the array 
         //when favorites button is clicked in the corner a modal or sidebar of favs appear
 
-      })
+      });
 
     
       
