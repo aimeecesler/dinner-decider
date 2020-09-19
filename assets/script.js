@@ -42,13 +42,14 @@ $(document).ready(function () {
   }
 
   function getfavorites (){
-    if(localStorage.getItem("FavName") === null){
-
-    }
-    localStorage.setItem("FavName", JSON.stringify(favorites.name));
-    localStorage.setItem("FavID", JSON.stringify(favorites.id));
-
-  }
+    if(localStorage.getItem("FavName") === null && localStorage.getItem("FavID") === null ){
+      favorites.name = "";
+      favorites.id = "";
+    }else {
+      favorites.name.push(JSON.parse(localStorage.getItem("FavName")));
+      favorites.id.push(JSON.parse(localStorage.getItem("FavID")));
+    };
+  };
   //Functions
 
   //function to create Cusines filter dropdown
