@@ -53,7 +53,7 @@ $(document).ready(function (event) {
       h4Highlights = "Highlights: " + response.highlights;
       h5Rating = "Rating: " + response.user_rating.aggregate_rating;
       h5Rating2 = " - " + response.user_rating.rating_text;
-      h6Website = response.name + "'s" + " website";
+      h6Website = response.name + "'s" + " Website";
       p7Address = "Address: " + response.location.address;
       p8PhoneNumber = "Phone Number: " + response.phone_numbers;
 
