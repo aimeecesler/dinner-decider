@@ -51,6 +51,7 @@
       </div>
     </nav>
     <!-- containers and header -->
+    <!-- jumbotron -->
     <section class="hero is-primary is-bold">
       <div class="hero-body">
         <div class="container">
@@ -60,12 +61,15 @@
         </div>
       </div>
     </section>
+    <!-- main container -->
     <div class="container is-fluid">
       <div class="columns">
+        <!-- column for random search and results -->
         <div
           class="column is-two-thirds has-text-centered"
           id="main-content-column"
         >
+        <!-- box for random search -->
           <div class="box py-6">
             <h1 class="is-size-1 has-text-weight-bold mt-6">
               Can't decide what you want for dinner?
@@ -78,8 +82,10 @@
               WHAT'S FOR DINNER?
             </button>
           </div>
+          <!-- div for results boxes -->
           <div id="detailsBoxes" class="column has-text-centered"></div>
       </div>
+      <!-- column for filtered search -->
         <div class="column has-text-centered" id="filter-column">
           <div class="box py-6">
             <h1 class="is-size-3 mt-6">Have something specific in mind?</h1>
@@ -111,10 +117,12 @@
                 WHAT'S FOR DINNER?
               </button>
             </form>
+            <!-- error message for filtered results -->
             <h2 id="error-message"></h2>
           </div>
         </div>
       </div>
+      <!-- script link -->
     <script src="assets/script.js" async defer></script>
   </body>
 </html>
