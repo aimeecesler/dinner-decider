@@ -58,7 +58,7 @@ $(document).ready(function () {
   });
 
   // click listener for info button, saves restaurant ID to local storage and opens details page
-  $("#info-btn").on("click", function (event) {
+  favoritesDiv.on("click", "#info-btn", function (event) {
     moreRestID = $(this).attr("rest-id");
     localStorage.setItem("moreRestId", moreRestID);
     window.open("details.html");
