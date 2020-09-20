@@ -22,7 +22,6 @@ $(document).ready(function (event) {
         "content-type": "application/json",
       },
     }).then(function (response) {
-      console.log(response);
       var rLatitude = response.location.latitude;
       var rLongitude = response.location.longitude;
       // adds map
@@ -58,14 +57,11 @@ $(document).ready(function (event) {
 
       $("#rWebsite").on("click", function (event) {
         event.preventDefault();
-        console.log("clicked");
-        // event.stopPropagation();
         window.open(response.url);
       });
     });
     $("#dTryAgain").on("click", function (event) {
       event.preventDefault();
-      // event.stopPropagation();
       window.open("index.html", "_self");
     });
   }

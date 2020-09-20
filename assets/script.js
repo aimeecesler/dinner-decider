@@ -23,32 +23,19 @@ $(document).ready(function () {
   var previewBoxEl;
 
   //Functions
+  // runs function to ask user for location
   window.navigator.geolocation.getCurrentPosition(getCoordinates);
 
   //Get Coordinates function for users location
   function getCoordinates(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
-    // console.log(latitude, longitude);
     localStorage.setItem("latitude", latitude);
     localStorage.setItem("longitude", longitude);
     getCuisines();
   }
-  //store the favorite resturants
-  // function storeFavorites(){
-  //   console.log("clicked")
-  //   // fav = response.restaurants[randomIndex].restaurant.name;
-  //   // favoritesName.push(fav);
-  //   // localStorage.setItem("FavName", JSON.stringify(favoritesName));
-  //   // favId = response.restaurants[randomIndex].restaurant.id;
-  //   // favoritesId.push(favId);
-  //   // localStorage.setItem("FavID", JSON.stringify(favoritesId));
-  //   // console.log(favId);
-  //   // console.log(fav);
 
-  // }
-
-  //get the favorite resturants list on page load
+  //get the favorite restaurants list on page load
   function getfavorites() {
     if (
       localStorage.getItem("FavName") != null &&
@@ -66,21 +53,8 @@ $(document).ready(function () {
     }
   }
   getfavorites();
-  //Functions
-  //get resturant ID
-  // function getRestId (){
-  //   console.log("clicked")
-  //   // moreRestID = restId;
-  //   // lat = restLat;
-  //   // lon = restLon;
-  //   // localStorage.setItem("fMoreRestId",JSON.stringify(moreRestID));
-  //   // localStorage.setItem('lat',JSON.stringify(lat));
-  //   // localStorage.setItem("lon",JSON.stringify(lon));
-  //   // window.open("details.html");
 
-  // };
-
-  //function to create Cusines filter dropdown
+  //function to create Cuisines filter dropdown
   function getCuisines() {
     var queryURL =
       "https://developers.zomato.com/api/v2.1/cuisines?&lat=" +
@@ -95,7 +69,6 @@ $(document).ready(function () {
         "content-type": "application/json",
       },
     }).then(function (response) {
-      // console.log(response);
       var cuisineArr = response.cuisines;
       for (
         var cuisineIndex = 0;
@@ -110,11 +83,10 @@ $(document).ready(function () {
     });
   }
 
-  // Search the resturant results based on location
-
-  // Search the resturant results based on location
+  // Search the restaurant results based on location - API call
 
   function restaurantSearch() {
+    // add a header on the first click
     if (clicked === 1) {
       detailsBoxEl.empty();
       var headerEl = $("<h1>")
@@ -129,8 +101,8 @@ $(document).ready(function () {
       );
       clearResultsButton.attr("id", "clear-results-btn");
       detailsBoxEl.append(clearResultsButton);
-    } else {
     }
+    // get latitude and longitude from local storage
     latitude = localStorage.getItem("latitude");
     longitude = localStorage.getItem("longitude");
     var radius = 1000;
@@ -142,6 +114,7 @@ $(document).ready(function () {
       "&lon=" +
       longitude +
       "&sort=real_distance&order=asc";
+    // make API call
     $.ajax({
       url: queryURL,
       method: "GET",
@@ -150,8 +123,7 @@ $(document).ready(function () {
         "content-type": "application/json",
       },
     }).then(function (response) {
-      // console.log(response);
-      // detailsBoxEl.empty();
+      // get a random number
       var randomNum = Math.floor(Math.random() * 19) + 1;
       //create elements
       var boxEl = $("<div>");
@@ -167,7 +139,7 @@ $(document).ready(function () {
       var pHours = $("<p>");
       var faveBtn = $("<button>").text("Add to Favorites");
       var imgURL = "";
-
+      // if no image is present, use stock image
       if (
         response.restaurants[randomNum].restaurant.featured_img != undefined
       ) {
@@ -176,6 +148,7 @@ $(document).ready(function () {
         imgURL = "https://static.thenounproject.com/png/978640-200.png";
       }
 
+      // if no cuisine or hours are present, use N/A
       var cuisines = response.restaurants[randomNum].restaurant.cuisines;
       var hours = response.restaurants[randomNum].restaurant.timings;
       if (cuisines === "") {
@@ -184,7 +157,7 @@ $(document).ready(function () {
       if (hours === "") {
         hours = "N/A";
       }
-      console.log(response);
+
       //attributes
       moreBtn.addClass(
         "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
@@ -222,6 +195,7 @@ $(document).ready(function () {
   }
 
   function filteredSearch() {
+    // get latitude and longitude from local storage
     latitude = localStorage.getItem("latitude");
     longitude = localStorage.getItem("longitude");
     var radius = 1000;
@@ -235,6 +209,7 @@ $(document).ready(function () {
       "&cuisines=" +
       selectedCuisine +
       "&sort=real_distance&order=asc";
+    // make API call
     $.ajax({
       url: queryURL,
       method: "GET",
@@ -243,11 +218,15 @@ $(document).ready(function () {
         "content-type": "application/json",
       },
     }).then(function (response) {
+      // empty the details box of previous information
       detailsBoxEl.empty();
+      // for loop to render 3 results
       for (var i = 0; i < 3; i++) {
+        // get a random number
         var randomIndex = Math.floor(
           Math.random() * response.restaurants.length
         );
+        // create elements
         var boxEl = $("<div>");
         var detailsBox1 = $("<article>");
         var imageEl = $("<div>");
@@ -262,7 +241,7 @@ $(document).ready(function () {
         var pHours = $("<p>");
         var faveBtn = $("<button>").text("Add to Favorites");
         var imgURL = "";
-
+        // if no image is present, use stock image
         if (
           response.restaurants[randomIndex].restaurant.featured_img != undefined
         ) {
@@ -270,22 +249,25 @@ $(document).ready(function () {
         } else {
           imgURL = "https://static.thenounproject.com/png/978640-200.png";
         }
-
+        // if cuisine is equal to the negative filter, stop and loop again
         if (
           response.restaurants[randomIndex].restaurant.cuisines.includes(
             deselectedCuisineName
           ) === true
         ) {
           i--;
+          // if cuisine is not equal to negative filter, add details box and continue
         } else {
           var cuisines = response.restaurants[randomIndex].restaurant.cuisines;
           var hours = response.restaurants[randomIndex].restaurant.timings;
+          // if no cuisine or hours are present, use N/A
           if (cuisines === "") {
             cuisines = "N/A";
           }
           if (hours === "") {
             hours = "N/A";
           }
+          //attributes
           detailsBoxEl.addClass("media");
           imageEl.addClass("media-left");
           moreBtn.attr("id", "moreBtn");
@@ -316,6 +298,7 @@ $(document).ready(function () {
           boxEl.addClass("box py-6 is-centered");
           imgSrc.attr("src", imgURL);
           imgSrc.attr("id", "preview-image");
+          // append
           imageFig.append(imgSrc);
           imageEl.append(imageFig, h3Name);
           contentDiv.append(pCuisineType, pHours, moreBtn, faveBtn);
@@ -325,9 +308,11 @@ $(document).ready(function () {
           detailsBoxEl.prepend(boxEl);
         }
       }
+      // add header above boxes
       detailsBoxEl.prepend(
         $("<h1>").text("Here are your top 3 results!").addClass("is-size-3")
       );
+      // add clear button below boxes
       var clearResultsButton = $("<button>").text("Clear Results");
       clearResultsButton.addClass(
         "button has-text-weight-bold is-primary is-rounded is-large mt-6 mb-6"
@@ -338,10 +323,11 @@ $(document).ready(function () {
   }
 
   // Event Listeners
-
+  // listener for click on random search button
   randomBtnEL.on("click", function (event) {
     event.preventDefault();
     clicked++;
+    // display message on fourth click and reset number of clicks, otherwise search restaurants
     if (clicked > 3) {
       previewBoxEl.prepend(
         $("<h2> HANGRY? Pick a place. <h2>").addClass(
@@ -354,18 +340,24 @@ $(document).ready(function () {
     }
   });
 
+  // listens for click on filtered search button
   filterBtnEL.on("click", function (event) {
     event.preventDefault();
+    // get restaurant ids from selected and deselected cuisines
     selectedCuisine = $("#selected-cuisine > option:selected").attr("id");
     deselectedCuisine = $("#unselected-cuisine > option:selected").attr("id");
     deselectedCuisineName = $("#unselected-cuisine > option:selected").val();
+    // reset clicks to zero
     clicked = 0;
+    // target error message div
     var errorMessage = $("#error-message");
+    // if both drop downs are empty, render error message
     if (selectedCuisine === "null" && deselectedCuisine === "null") {
       errorMessage.empty();
       errorMessage
         .text("You must select one option!")
         .addClass("is-size-3 has-text-danger-dark");
+      // if both drop downs are the same, render error message
     } else if (selectedCuisine === deselectedCuisine) {
       errorMessage.empty();
       errorMessage
@@ -373,25 +365,25 @@ $(document).ready(function () {
           "You must be hangry, you're delirious! Positive and negative selections cannot be the same thing."
         )
         .addClass("is-size-3 has-text-danger-dark");
+      // otherwise, empty error message and run filtered search
     } else {
       errorMessage.empty();
       filteredSearch();
     }
   });
 
+  // event listener for click on more info button
   detailsBoxEl.on("click", "#moreBtn", function (event) {
     event.preventDefault();
-    console.log("clicked");
-    // event.stopPropagation();
-    // console.log($(this).attr("rest-id"));
+    // get the restaurant id from the button, save to local storage and open details page
     moreRestID = $(this).attr("rest-id");
     localStorage.setItem("moreRestId", moreRestID);
     window.open("details.html");
   });
-
+  // event listener for click on add to favorites button
   detailsBoxEl.on("click", "#faveBtnF", function (event) {
     event.preventDefault();
-    console.log("clicked fave");
+    // get restaurant name and id from button and push to local storage array
     var fav = $(this).attr("rest-name");
     favoritesName.push(fav);
     localStorage.setItem("FavName", JSON.stringify(favoritesName));
@@ -400,6 +392,7 @@ $(document).ready(function () {
     localStorage.setItem("FavID", JSON.stringify(favoritesId));
   });
 
+  // event listener for click on clear results button, resets clicks to 0 and empties details boxes
   detailsBoxEl.on("click", "#clear-results-btn", function (event) {
     event.preventDefault();
     clicked = 0;
