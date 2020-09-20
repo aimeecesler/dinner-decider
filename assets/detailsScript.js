@@ -10,6 +10,8 @@ $(document).ready(function (event) {
   var h4El = $("#rHighlights");
   var h5El = $("#rRating");
   var h6El = $("#rWebsite");
+  var p7El = $("#rAddress");
+  var p8El = $("#rPhoneNumber");
 
   function getRestaurantInfo() {
     var queryURL =
@@ -45,6 +47,8 @@ $(document).ready(function (event) {
       h5Rating = "Rating: " + response.user_rating.aggregate_rating;
       h5Rating2 = " - " + response.user_rating.rating_text;
       h6Website = response.name + "'s" + " website";
+      p7Address = "Address: " + response.location.address;
+      p8PhoneNumber = "Phone Number: " + response.phone_numbers;
 
       h1El.append(h1Name);
       h2El.append(h2Timings);
@@ -52,6 +56,8 @@ $(document).ready(function (event) {
       h4El.append(h4Highlights);
       h5El.append(h5Rating, h5Rating2);
       h6El.append(h6Website);
+      p7El.append(p7Address);
+      p8El.append(p8PhoneNumber);
 
       // on click functions for buttons
 
