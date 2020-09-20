@@ -400,6 +400,7 @@ $(document).ready(function () {
   //       moreRestID = $(this).attr("rest-id");
   //       localStorage.setItem("moreRestId", moreRestID);
   //       window.open("details.html");
+
   //   event.preventDefault();
   //   // console.log("clicked");
     
