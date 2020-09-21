@@ -122,6 +122,7 @@ $(document).ready(function () {
         .addClass("is-size-3");
       detailsBoxEl.append(headerEl);
       previewBoxEl = $("<div>");
+      detailsBoxEl.addClass("box");
       detailsBoxEl.append(previewBoxEl);
     } else {
     }

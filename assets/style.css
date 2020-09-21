@@ -1,3 +1,7 @@
+#body {
+  background-image: url("food-background.jpg");
+}
+
 #preview-image {
   max-width: 200px;
   max-height: 200px;
@@ -27,4 +31,16 @@ p8 {
   margin-left: 0;
   margin-right: 0;
   font-weight: bold;
+}
+
+.title {
+  font-family: "Fascinate Inline", cursive;
+}
+
+.navbar-menu {
+  font-family: "Open Sans", sans-serif;
+}
+
+.box {
+  font-family: "Open Sans", sans-serif;
 }
