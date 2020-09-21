@@ -29,26 +29,12 @@ $(document).ready(function () {
   function getCoordinates(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
-    // console.log(latitude, longitude);
     localStorage.setItem("latitude", latitude);
     localStorage.setItem("longitude", longitude);
     getCuisines();
   }
-  //store the favorite resturants
-  // function storeFavorites(){
-  //   console.log("clicked")
-  //   // fav = response.restaurants[randomIndex].restaurant.name;
-  //   // favoritesName.push(fav);
-  //   // localStorage.setItem("FavName", JSON.stringify(favoritesName));
-  //   // favId = response.restaurants[randomIndex].restaurant.id;
-  //   // favoritesId.push(favId);
-  //   // localStorage.setItem("FavID", JSON.stringify(favoritesId));
-  //   // console.log(favId);
-  //   // console.log(fav);
 
-  // }
-
-  //get the favorite resturants list on page load
+  //get the favorite restaurants list on page load
   function getfavorites() {
     if (
       localStorage.getItem("FavName") != null &&
@@ -67,20 +53,8 @@ $(document).ready(function () {
   }
   getfavorites();
   //Functions
-  //get resturant ID
-  // function getRestId (){
-  //   console.log("clicked")
-  //   // moreRestID = restId;
-  //   // lat = restLat;
-  //   // lon = restLon;
-  //   // localStorage.setItem("fMoreRestId",JSON.stringify(moreRestID));
-  //   // localStorage.setItem('lat',JSON.stringify(lat));
-  //   // localStorage.setItem("lon",JSON.stringify(lon));
-  //   // window.open("details.html");
 
-  // };
-
-  //function to create Cusines filter dropdown
+  //function to create Cuisines filter dropdown
   function getCuisines() {
     var queryURL =
       "https://developers.zomato.com/api/v2.1/cuisines?&lat=" +
@@ -95,7 +69,6 @@ $(document).ready(function () {
         "content-type": "application/json",
       },
     }).then(function (response) {
-      // console.log(response);
       var cuisineArr = response.cuisines;
       for (
         var cuisineIndex = 0;
@@ -110,11 +83,10 @@ $(document).ready(function () {
     });
   }
 
-  // Search the resturant results based on location
-
-  // Search the resturant results based on location
+  // Search the restaurant results based on location
 
   function restaurantSearch() {
+    // on first click, add header
     if (clicked === 1) {
       detailsBoxEl.empty();
       var headerEl = $("<h1>")
@@ -124,8 +96,8 @@ $(document).ready(function () {
       previewBoxEl = $("<div>");
       detailsBoxEl.addClass("box");
       detailsBoxEl.append(previewBoxEl);
-    } else {
     }
+    // get location from local storage
     latitude = localStorage.getItem("latitude");
     longitude = localStorage.getItem("longitude");
     var radius = 1000;
@@ -145,8 +117,6 @@ $(document).ready(function () {
         "content-type": "application/json",
       },
     }).then(function (response) {
-      // console.log(response);
-      // detailsBoxEl.empty();
       var randomNum = Math.floor(Math.random() * 19) + 1;
       //create elements
       var boxEl = $("<div>");
@@ -162,7 +132,7 @@ $(document).ready(function () {
       var pHours = $("<p>");
       var faveBtn = $("<button>").text("Add to Favorites");
       var imgURL = "";
-
+      // if no data, enter N/A
       if (
         response.restaurants[randomNum].restaurant.featured_img != undefined
       ) {
@@ -179,7 +149,6 @@ $(document).ready(function () {
       if (hours === "") {
         hours = "N/A";
       }
-      console.log(response);
       //attributes
       moreBtn.addClass(
         "button has-text-weight-bold is-primary is-rounded is-normal mt-6 mb-6"
@@ -197,7 +166,6 @@ $(document).ready(function () {
       h3Name.addClass("is-size-2 is-family-code");
       pHours.text("Hours: " + hours);
       pCuisineType.text("Type of Cuisine: " + cuisines);
-
       moreBtn.text("More info");
       moreBtn.attr("id", "moreBtn");
       moreBtn.attr("rest-id", response.restaurants[randomNum].restaurant.id);
@@ -331,7 +299,6 @@ $(document).ready(function () {
   randomBtnEL.on("click", function (event) {
     event.preventDefault();
     clicked++;
-    // console.log(clicked)
     if (clicked > 3) {
       detailsBoxEl.prepend(
         $("<h2> HANGRY? Pick a place. <h2>").addClass(
@@ -371,9 +338,6 @@ $(document).ready(function () {
 
   $("#detailsBoxes").on("click", "#moreBtn", function (event) {
     event.preventDefault();
-    console.log("clicked");
-    // event.stopPropagation();
-    // console.log($(this).attr("rest-id"));
     moreRestID = $(this).attr("rest-id");
     localStorage.setItem("moreRestId", moreRestID);
     window.open("details.html");
@@ -381,7 +345,6 @@ $(document).ready(function () {
 
   $("#detailsBoxes").on("click", "#faveBtnF", function (event) {
     event.preventDefault();
-    console.log("clicked fave");
     var fav = $(this).attr("rest-name");
     favoritesName.push(fav);
     localStorage.setItem("FavName", JSON.stringify(favoritesName));
