@@ -44,3 +44,8 @@ p8 {
 .box {
   font-family: "Open Sans", sans-serif;
 }
+
+.wrap {
+  white-space: normal;
+  height: auto;
+}
