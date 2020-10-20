@@ -8,6 +8,13 @@ Dinner Decider provides users with a fun, straight-forward solution to a univers
 
 No installation is necessary; simply visit the website by clicking this [link.](https://aimeecesler.github.io/dinner-decider/)
 
+## Contact
+Find us on LinkedIn!
+* [Aimee Esler](https://www.linkedin.com/in/aimee-esler-3bb31288/)
+* [Amanda Westin](https://www.linkedin.com/in/amanda-fici-7619ab1b1/)
+* [Ashley Brown] (https://www.linkedin.com/in/ashley-brown-897a62126/)
+* [Ali Khan] (https://www.linkedin.com/in/alikhan04/)
+
 ## Usage
 
 A browser-based app, Dinner Decider allows for a couple different methods of selecting a restaurant:
