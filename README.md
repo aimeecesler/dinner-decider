@@ -12,8 +12,8 @@ No installation is necessary; simply visit the website by clicking this [link.](
 Find us on LinkedIn!
 * [Aimee Esler](https://www.linkedin.com/in/aimee-esler-3bb31288/)
 * [Amanda Westin](https://www.linkedin.com/in/amanda-fici-7619ab1b1/)
-* [Ashley Brown] (https://www.linkedin.com/in/ashley-brown-897a62126/)
-* [Ali Khan] (https://www.linkedin.com/in/alikhan04/)
+* [Ashley Brown](https://www.linkedin.com/in/ashley-brown-897a62126/)
+* [Ali Khan](https://www.linkedin.com/in/alikhan04/)
 
 ## Usage
 
